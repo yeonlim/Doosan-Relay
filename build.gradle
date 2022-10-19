@@ -1,0 +1,66 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.3'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.daeu.suprema'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// spring boot
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-starter-web-services')
+	implementation('org.springframework.boot:spring-boot-starter-tomcat')
+	implementation('org.springframework.boot:spring-boot-starter-aop')
+	implementation('org.springframework.boot:spring-boot-starter-jdbc')
+	implementation('org.springframework.boot:spring-boot-starter-validation')
+	implementation('org.springframework.boot:spring-boot-configuration-processor')
+	// implementation('org.springframework.boot:spring-boot-starter-security')
+
+	// lombok
+	implementation('org.projectlombok:lombok')
+	annotationProcessor('org.projectlombok:lombok')
+
+	// joda-time
+	implementation('joda-time:joda-time:2.11.1')
+
+	// log
+	implementation('ch.qos.logback:logback-classic')
+
+	// json
+	implementation('com.fasterxml.jackson.core:jackson-core')
+	implementation('com.google.code.gson:gson:2.9.0')
+
+	// apache common
+	implementation('org.apache.commons:commons-lang3')
+	implementation('commons-net:commons-net:3.8.0')
+
+	// httpclient
+	implementation('org.apache.httpcomponents:httpclient:4.5.13')
+
+	// MS-Sql
+	implementation('com.microsoft.sqlserver:mssql-jdbc')
+
+	// local lib
+	implementation fileTree(dir: "libs")
+}
+
+// resources profile 정의 (local, dev, prod)
+def profile = "local"
+println("profile : " + profile)
+
+sourceSets {
+	main {
+		resources {
+			srcDirs ("src/main/resources", "resource-env/$profile")
+		}
+	}
+}

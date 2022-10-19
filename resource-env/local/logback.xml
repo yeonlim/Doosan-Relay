@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="30 seconds">
+    <property name="LOG_FILE_PATH" value="${user.home}/Suprema-relay/local/log" />
+
+    <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file zip="2" del="5">${LOG_FILE_PATH}/Suprema-relay.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}/Suprema-relay.%d{yyyyMMdd}</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{MM/dd HH:mm:ss.SSS} %-5level - %F|%M|%line line -> %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level - %F|%M|%line line -> %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FileAppender" />
+        <appender-ref ref="ConsoleAppender" />
+    </root>
+</configuration>
