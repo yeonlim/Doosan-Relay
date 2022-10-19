@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class IF_ERP_SFDC_REG_SOA_biz extends WebCalloutUtil {
+public class IF_ERP_SFDC_DEL_SOA_biz extends WebCalloutUtil {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
-    @Value("${IF.ERP.SFDC.REG.SOA.PATH}")
-    private String IF_ERP_SFDC_REG_SOA;
+    @Value("${IF.ERP.SFDC.DEL.SOA.PATH}")
+    private String IF_ERP_SFDC_DEL_SOA;
 
     @Autowired
     private IF_ERP_SFDC_SOA_repo repository;
@@ -36,14 +36,14 @@ public class IF_ERP_SFDC_REG_SOA_biz extends WebCalloutUtil {
         int prcCnt = 0;
         Gson gson = new Gson();
 
-        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_REG_PACKING_LIST");
-        logger.info("### Requst URL : {}", IF_ERP_SFDC_REG_SOA);
+        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_DEL_SOA");
+        logger.info("### Requst URL : {}", IF_ERP_SFDC_DEL_SOA);
 
         while (true) {
             prcCnt++;
 
             // 1. 매출채권 정보 조회 (최대 1000 Rows)
-            List<Map<String, Object>> soaListMap = repository.SELECT_SOA_REG_LIST(prcCnt);
+            List<Map<String, Object>> soaListMap = repository.SELECT_SOA_DEL_LIST(prcCnt);
             if(soaListMap == null || soaListMap.isEmpty()) {
                 logger.info("Terminate the batch as there are no Rows to be interfaced.");
                 break;
@@ -59,7 +59,7 @@ public class IF_ERP_SFDC_REG_SOA_biz extends WebCalloutUtil {
             objReq.setSoaList(soaList);
 
             // 3. 요청
-            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_SOA, objReq);
+            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_DEL_SOA, objReq);
             logger.info("response : {}", responseStr);
 
             IF_ERP_SFDC_REG_SOA_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_SOA_Res.class);

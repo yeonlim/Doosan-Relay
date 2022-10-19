@@ -32,28 +32,44 @@ public class IF_DO_BATCH_001 extends WebCalloutUtil {
     private final String IFID = "IF_DO_BATCH_001";
 
     @Autowired
-    private IF_ERP_SFDC_REG_ACCOUNT_biz account;				// 거래처 정보
+    private IF_ERP_SFDC_REG_ACCOUNT_biz IF_ERP_SFDC_REG_ACCOUNT_biz;				// 거래처 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_ACCOUNT_biz IF_ERP_SFDC_DEL_ACCOUNT_biz;				// 거래처 정보 삭제
 
     @Autowired
-    private IF_ERP_SFDC_REG_PRODUCT_biz product;				// 품목 정보
+    private IF_ERP_SFDC_REG_PRODUCT_biz IF_ERP_SFDC_REG_PRODUCT_biz;				// 품목 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_PRODUCT_biz IF_ERP_SFDC_DEL_PRODUCT_biz;				// 품목 정보 삭제
 
     @Autowired
-    private IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz pricebookAcc;	    // 고객별 할인율 정보
+    private IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz;	// 고객별 할인율 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_PRICEBOOK_ACC_biz IF_ERP_SFDC_DEL_PRICEBOOK_ACC_biz;	// 고객별 할인율 정보 삭제
 
     @Autowired
-    private IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz pricebookQty;	    // 수량별 단가 정보
+    private IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz;	// 수량별 단가 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz;	// 수량별 단가 정보 삭제
 
     @Autowired
-    private IF_ERP_SFDC_REG_SHIPTO_biz shipto;					// 납품처 정보
+    private IF_ERP_SFDC_REG_SHIPTO_biz IF_ERP_SFDC_REG_SHIPTO_biz;					// 납품처 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_SHIPTO_biz IF_ERP_SFDC_DEL_SHIPTO_biz;					// 납품처 정보 삭제
 
     @Autowired
-    private IF_ERP_SFDC_REG_SOA_biz soa;						// 매출채권 정보
+    private IF_ERP_SFDC_REG_SOA_biz IF_ERP_SFDC_REG_SOA_biz;						// 매출채권 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_SOA_biz IF_ERP_SFDC_DEL_SOA_biz;						// 매출채권 정보 삭제
 
     @Autowired
-    private IF_ERP_SFDC_REG_BL_biz bl;							// BL 정보
+    private IF_ERP_SFDC_REG_BL_biz IF_ERP_SFDC_REG_BL_biz;							// BL 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_BL_biz IF_ERP_SFDC_DEL_BL_biz;							// BL 정보 삭제
 
     @Autowired
-    private IF_ERP_SFDC_REG_PACKING_LIST_biz packingList;		// Packing List 정보
+    private IF_ERP_SFDC_REG_PACKING_LIST_biz IF_ERP_SFDC_REG_PACKING_LIST_biz;		// Packing List 정보 등록
+    @Autowired
+    private IF_ERP_SFDC_DEL_PACKING_LIST_biz IF_ERP_SFDC_DEL_PACKING_LIST_biz;		// Packing List 정보 삭제
 
     @RequestMapping(value = "/V1/IF_DO_BATCH_001", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
@@ -71,18 +87,40 @@ public class IF_DO_BATCH_001 extends WebCalloutUtil {
         logger.info("apiName : {}", apiName);
 
         switch (apiName) {
-            case "ACCOUNT" : account.execute(); break;
-            case "PRODUCT" : product.execute(); break;
-            case "PRICEBOOKACC" : pricebookAcc.execute(); break;
-            case "PRICEBOOKQTY" : pricebookQty.execute(); break;
-            case "SOA" : soa.execute(); break;
-            case "BL" :  bl.execute(); break;
-            case "PACKINGLIST" : packingList.execute(); break;
-            case "SHIPTO" : shipto.execute(); break;
+            case "ACCOUNT" :
+                IF_ERP_SFDC_REG_ACCOUNT_biz.execute();
+                IF_ERP_SFDC_DEL_ACCOUNT_biz.execute();
+                break;
+            case "PRODUCT" :
+                IF_ERP_SFDC_REG_PRODUCT_biz.execute();
+                IF_ERP_SFDC_DEL_PRODUCT_biz.execute();
+                break;
+            case "PRICEBOOKACC" :
+                IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz.execute();
+                IF_ERP_SFDC_DEL_PRICEBOOK_ACC_biz.execute();
+                break;
+            case "PRICEBOOKQTY" :
+                IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz.execute();
+                IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz.execute();
+                break;
+            case "SOA" :
+                IF_ERP_SFDC_REG_SOA_biz.execute();
+                IF_ERP_SFDC_DEL_SOA_biz.execute();
+                break;
+            case "BL" :
+                IF_ERP_SFDC_REG_BL_biz.execute();
+                IF_ERP_SFDC_DEL_BL_biz.execute();
+                break;
+            case "PACKINGLIST" :
+                IF_ERP_SFDC_REG_PACKING_LIST_biz.execute();
+                IF_ERP_SFDC_DEL_PACKING_LIST_biz.execute();
+                break;
+            case "SHIPTO" :
+                IF_ERP_SFDC_REG_SHIPTO_biz.execute();
+                IF_ERP_SFDC_DEL_SHIPTO_biz.execute();
+                break;
             default:
         }
-
-        logger.info("result : {}", objOutput);
 
         return objOutput;
     }

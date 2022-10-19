@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class ACCOUNT {
+public class ACCOUNT_REG {
     /**
      * 1-1. 거래처 코드<br>
      *  - ERP 거래처 코드
@@ -66,9 +66,9 @@ public class ACCOUNT {
      */
     private String cudType;
 
-    public ACCOUNT() { }
+    public ACCOUNT_REG() { }
 
-    public ACCOUNT(Map<String, Object> a) {
+    public ACCOUNT_REG(Map<String, Object> a) {
         this.accountId = a.get("BP_CD").toString();
         this.businessNum = a.get("BP_RGST_NO").toString();
         this.accountFullName = a.get("BP_FULL_NM").toString();

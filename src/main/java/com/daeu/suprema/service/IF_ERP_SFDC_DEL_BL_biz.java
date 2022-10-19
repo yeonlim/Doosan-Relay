@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class IF_ERP_SFDC_REG_BL_biz extends WebCalloutUtil {
+public class IF_ERP_SFDC_DEL_BL_biz extends WebCalloutUtil {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
-    @Value("${IF.ERP.SFDC.REG.BL.PATH}")
-    private String IF_ERP_SFDC_REG_BL;
+    @Value("${IF.ERP.SFDC.DEL.BL.PATH}")
+    private String IF_ERP_SFDC_DEL_BL;
 
     @Autowired
     private IF_ERP_SFDC_BL_repo repository;
@@ -35,14 +35,14 @@ public class IF_ERP_SFDC_REG_BL_biz extends WebCalloutUtil {
         int prcCnt = 0;
         Gson gson = new Gson();
 
-        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_REG_BL");
-        logger.info("### Requst URL : {}", IF_ERP_SFDC_REG_BL);
+        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_DEL_BL");
+        logger.info("### Requst URL : {}", IF_ERP_SFDC_DEL_BL);
 
         while (true) {
             prcCnt++;
 
             // 1. BL 정보 조회 (최대 1000 Rows)
-            List<Map<String, Object>> blListMap = repository.SELECT_BL_REG_LIST(prcCnt);
+            List<Map<String, Object>> blListMap = repository.SELECT_BL_DEL_LIST(prcCnt);
             if(blListMap == null || blListMap.isEmpty()) {
                 logger.info("Terminate the batch as there are no Rows to be interfaced.");
                 break;
@@ -91,7 +91,7 @@ public class IF_ERP_SFDC_REG_BL_biz extends WebCalloutUtil {
             objReq.setBlList(blList);
 
             // 3. 요청
-            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_BL, objReq);
+            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_DEL_BL, objReq);
             logger.info("response : {}", responseStr);
 
             IF_ERP_SFDC_REG_BL_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_BL_Res.class);

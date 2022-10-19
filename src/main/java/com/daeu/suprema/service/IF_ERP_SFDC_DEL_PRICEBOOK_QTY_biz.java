@@ -1,8 +1,6 @@
 package com.daeu.suprema.service;
 
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_QTY.IF_ERP_SFDC_REG_PRICEBOOK_QTY_Req;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_QTY.IF_ERP_SFDC_REG_PRICEBOOK_QTY_Res;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_QTY.PRICEBOOK_QTY_REG;
+import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_QTY.*;
 import com.daeu.suprema.repository.IF_ERP_SFDC_PRICEBOOK_QTY_repo;
 import com.daeu.suprema.util.HttpRequestUtil;
 import com.daeu.suprema.util.WebCalloutUtil;
@@ -19,14 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz extends WebCalloutUtil {
+public class IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz extends WebCalloutUtil {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
-    @Value("${IF.ERP.SFDC.REG.PRICEBOOK.QTY.PATH}")
-    private String IF_ERP_SFDC_REG_PRICEBOOK_QTY;
+    @Value("${IF.ERP.SFDC.DEL.PRICEBOOK.QTY.PATH}")
+    private String IF_ERP_SFDC_DEL_PRICEBOOK_QTY;
 
     @Autowired
     private IF_ERP_SFDC_PRICEBOOK_QTY_repo repository;
@@ -36,30 +34,30 @@ public class IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz extends WebCalloutUtil {
         int prcCnt = 0;
         Gson gson = new Gson();
 
-        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_REG_PACKING_LIST");
-        logger.info("### Requst URL : {}", IF_ERP_SFDC_REG_PRICEBOOK_QTY);
+        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_DEL_PRICEBOOK_QTY");
+        logger.info("### Requst URL : {}", IF_ERP_SFDC_DEL_PRICEBOOK_QTY);
 
         while (true) {
             prcCnt++;
 
             // 1. 수량별 단가 정보 조회 (최대 1000 Rows)
-            List<Map<String, Object>> pricebookQtyListMap = repository.SELECT_PRICEBOOK_QTY_REG_LIST(prcCnt);
+            List<Map<String, Object>> pricebookQtyListMap = repository.SELECT_PRICEBOOK_QTY_DEL_LIST(prcCnt);
             if(pricebookQtyListMap == null || pricebookQtyListMap.isEmpty()) {
                 logger.info("Terminate the batch as there are no Rows to be interfaced.");
                 break;
             }
 
             // 2. API 요청 규격으로 Convert
-            List<PRICEBOOK_QTY_REG> pricebookQtyList = new ArrayList<>();
+            List<PRICEBOOK_QTY_DEL> pricebookQtyList = new ArrayList<>();
             for(Map<String, Object> pq : pricebookQtyListMap) {
-                pricebookQtyList.add(new PRICEBOOK_QTY_REG(pq));
+                pricebookQtyList.add(new PRICEBOOK_QTY_DEL(pq));
             }
 
-            IF_ERP_SFDC_REG_PRICEBOOK_QTY_Req objReq = new IF_ERP_SFDC_REG_PRICEBOOK_QTY_Req();
+            IF_ERP_SFDC_DEL_PRICEBOOK_QTY_Req objReq = new IF_ERP_SFDC_DEL_PRICEBOOK_QTY_Req();
             objReq.setPricebookQtyList(pricebookQtyList);
 
             // 3. 요청
-            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_PRICEBOOK_QTY, objReq);
+            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_DEL_PRICEBOOK_QTY, objReq);
             logger.info("response : {}", responseStr);
 
             IF_ERP_SFDC_REG_PRICEBOOK_QTY_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_PRICEBOOK_QTY_Res.class);

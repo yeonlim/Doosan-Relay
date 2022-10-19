@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class PRODUCT {
+public class PRODUCT_REG {
     /**
      *  1-1. 대표품목명코드
      */
@@ -58,9 +58,9 @@ public class PRODUCT {
      */
     private String cudType;
 
-    public PRODUCT() { }
+    public PRODUCT_REG() { }
 
-    public PRODUCT(Map<String, Object> p) {
+    public PRODUCT_REG(Map<String, Object> p) {
         this.productCode = p.get("S_ITEM_CD").toString();
         this.productName = p.get("S_ITEM_NM").toString();
         this.productGroupCode = p.get("ITEM_GROUP_CD").toString();

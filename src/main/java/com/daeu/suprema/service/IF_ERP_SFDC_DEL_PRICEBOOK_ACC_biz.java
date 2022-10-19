@@ -1,8 +1,8 @@
 package com.daeu.suprema.service;
 
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.IF_ERP_SFDC_REG_PRICEBOOK_ACC_Req;
+import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.IF_ERP_SFDC_DEL_PRICEBOOK_ACC_Req;
 import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.IF_ERP_SFDC_REG_PRICEBOOK_ACC_Res;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.PRICEBOOK_ACC_REG;
+import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.PRICEBOOK_ACC_DEL;
 import com.daeu.suprema.repository.IF_ERP_SFDC_PRICEBOOK_ACC_repo;
 import com.daeu.suprema.util.HttpRequestUtil;
 import com.daeu.suprema.util.WebCalloutUtil;
@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz extends WebCalloutUtil {
+public class IF_ERP_SFDC_DEL_PRICEBOOK_ACC_biz extends WebCalloutUtil {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
-    @Value("${IF.ERP.SFDC.REG.PRICEBOOK.ACC.PATH}")
-    private String IF_ERP_SFDC_REG_PRICEBOOK_ACC;
+    @Value("${IF.ERP.SFDC.DEL.PRICEBOOK.ACC.PATH}")
+    private String IF_ERP_SFDC_DEL_PRICEBOOK_ACC;
 
     @Autowired
     private IF_ERP_SFDC_PRICEBOOK_ACC_repo repository;
@@ -36,30 +36,30 @@ public class IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz extends WebCalloutUtil {
         int prcCnt = 0;
         Gson gson = new Gson();
 
-        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_REG_PRICEBOOK_ACC");
-        logger.info("### Requst URL : {}", IF_ERP_SFDC_REG_PRICEBOOK_ACC);
+        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_DEL_PRICEBOOK_ACC");
+        logger.info("### Requst URL : {}", IF_ERP_SFDC_DEL_PRICEBOOK_ACC);
 
         while (true) {
             prcCnt++;
 
             // 1. 고객별 할인율 정보 조회 (최대 1000 Rows)
-            List<Map<String, Object>> pricebookAccListMap = repository.SELECT_PRICEBOOK_ACC_REG_LIST(prcCnt);
+            List<Map<String, Object>> pricebookAccListMap = repository.SELECT_PRICEBOOK_ACC_DEL_LIST(prcCnt);
             if(pricebookAccListMap == null || pricebookAccListMap.isEmpty()) {
                 logger.info("Terminate the batch as there are no Rows to be interfaced.");
                 break;
             }
 
             // 2. API 요청 규격으로 Convert
-            List<PRICEBOOK_ACC_REG> pricebookAccList = new ArrayList<>();
+            List<PRICEBOOK_ACC_DEL> pricebookAccList = new ArrayList<>();
             for(Map<String, Object> pa : pricebookAccListMap) {
-                pricebookAccList.add(new PRICEBOOK_ACC_REG(pa));
+                pricebookAccList.add(new PRICEBOOK_ACC_DEL(pa));
             }
 
-            IF_ERP_SFDC_REG_PRICEBOOK_ACC_Req objReq = new IF_ERP_SFDC_REG_PRICEBOOK_ACC_Req();
+            IF_ERP_SFDC_DEL_PRICEBOOK_ACC_Req objReq = new IF_ERP_SFDC_DEL_PRICEBOOK_ACC_Req();
             objReq.setPricebookAccList(pricebookAccList);
 
             // 3. 요청
-            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_PRICEBOOK_ACC, objReq);
+            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_DEL_PRICEBOOK_ACC, objReq);
             logger.info("response : {}", responseStr);
 
             IF_ERP_SFDC_REG_PRICEBOOK_ACC_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_PRICEBOOK_ACC_Res.class);

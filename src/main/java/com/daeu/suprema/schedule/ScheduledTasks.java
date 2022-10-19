@@ -26,28 +26,44 @@ public class ScheduledTasks extends WebCalloutUtil {
 	private String SFDC_IF_TEST;
 
 	@Autowired
-	private IF_ERP_SFDC_REG_ACCOUNT_biz IF_ERP_SFDC_REG_ACCOUNT_biz;				// 거래처 정보
+	private IF_ERP_SFDC_REG_ACCOUNT_biz IF_ERP_SFDC_REG_ACCOUNT_biz;				// 거래처 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_ACCOUNT_biz IF_ERP_SFDC_DEL_ACCOUNT_biz;				// 거래처 정보 삭제
 
 	@Autowired
-	private IF_ERP_SFDC_REG_PRODUCT_biz IF_ERP_SFDC_REG_PRODUCT_biz;				// 품목 정보
+	private IF_ERP_SFDC_REG_PRODUCT_biz IF_ERP_SFDC_REG_PRODUCT_biz;				// 품목 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_PRODUCT_biz IF_ERP_SFDC_DEL_PRODUCT_biz;				// 품목 정보 삭제
 
 	@Autowired
-	private IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz;	// 고객별 할인율 정보
+	private IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz;	// 고객별 할인율 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_PRICEBOOK_ACC_biz IF_ERP_SFDC_DEL_PRICEBOOK_ACC_biz;	// 고객별 할인율 정보 삭제
 
 	@Autowired
-	private IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz;	// 수량별 단가 정보
+	private IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz;	// 수량별 단가 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz;	// 수량별 단가 정보 삭제
 
 	@Autowired
-	private IF_ERP_SFDC_REG_SHIPTO_biz IF_ERP_SFDC_REG_SHIPTO_biz;					// 납품처 정보
+	private IF_ERP_SFDC_REG_SHIPTO_biz IF_ERP_SFDC_REG_SHIPTO_biz;					// 납품처 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_SHIPTO_biz IF_ERP_SFDC_DEL_SHIPTO_biz;					// 납품처 정보 삭제
 
 	@Autowired
-	private IF_ERP_SFDC_REG_SOA_biz IF_ERP_SFDC_REG_SOA_biz;						// 매출채권 정보
+	private IF_ERP_SFDC_REG_SOA_biz IF_ERP_SFDC_REG_SOA_biz;						// 매출채권 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_SOA_biz IF_ERP_SFDC_DEL_SOA_biz;						// 매출채권 정보 삭제
 
 	@Autowired
-	private IF_ERP_SFDC_REG_BL_biz IF_ERP_SFDC_REG_BL_biz;							// BL 정보
+	private IF_ERP_SFDC_REG_BL_biz IF_ERP_SFDC_REG_BL_biz;							// BL 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_BL_biz IF_ERP_SFDC_DEL_BL_biz;							// BL 정보 삭제
 
 	@Autowired
-	private IF_ERP_SFDC_REG_PACKING_LIST_biz IF_ERP_SFDC_REG_PACKING_LIST_biz;		// Packing List 정보
+	private IF_ERP_SFDC_REG_PACKING_LIST_biz IF_ERP_SFDC_REG_PACKING_LIST_biz;		// Packing List 정보 등록
+	@Autowired
+	private IF_ERP_SFDC_DEL_PACKING_LIST_biz IF_ERP_SFDC_DEL_PACKING_LIST_biz;		// Packing List 정보 삭제
 
 	public void TEST_BATCH() {
 		if(!scheduleEnable) return;
@@ -68,6 +84,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_ACCOUNT_biz.execute();
+		IF_ERP_SFDC_DEL_ACCOUNT_biz.execute();
 	}
 
 	/**
@@ -77,6 +94,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_PRODUCT_biz.execute();
+		IF_ERP_SFDC_DEL_PRODUCT_biz.execute();
 	}
 
 	/**
@@ -86,6 +104,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz.execute();
+		IF_ERP_SFDC_DEL_PRICEBOOK_ACC_biz.execute();
 	}
 
 	/**
@@ -95,6 +114,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz.execute();
+		IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz.execute();
 	}
 
 	/**
@@ -104,6 +124,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_SHIPTO_biz.execute();
+		IF_ERP_SFDC_DEL_SHIPTO_biz.execute();
 	}
 
 	/**
@@ -113,6 +134,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_SOA_biz.execute();
+		IF_ERP_SFDC_DEL_SOA_biz.execute();
 	}
 
 	/**
@@ -122,6 +144,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_BL_biz.execute();
+		IF_ERP_SFDC_DEL_BL_biz.execute();
 	}
 
 	/**
@@ -131,5 +154,6 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_PACKING_LIST_biz.execute();
+		IF_ERP_SFDC_DEL_PACKING_LIST_biz.execute();
 	}
 }
