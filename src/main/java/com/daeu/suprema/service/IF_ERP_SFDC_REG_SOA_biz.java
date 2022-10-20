@@ -1,8 +1,8 @@
 package com.daeu.suprema.service;
 
 import com.daeu.suprema.io.IF_ERP_SFDC_REG_SOA.IF_ERP_SFDC_REG_SOA_Req;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_SOA.IF_ERP_SFDC_REG_SOA_Res;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_SOA.SOA;
+import com.daeu.suprema.io.IF_ERP_SFDC_REG_SOA.IF_ERP_SFDC_SOA_Res;
+import com.daeu.suprema.io.IF_ERP_SFDC_REG_SOA.SOA_REG;
 import com.daeu.suprema.repository.IF_ERP_SFDC_SOA_repo;
 import com.daeu.suprema.util.HttpRequestUtil;
 import com.daeu.suprema.util.WebCalloutUtil;
@@ -36,7 +36,7 @@ public class IF_ERP_SFDC_REG_SOA_biz extends WebCalloutUtil {
         int prcCnt = 0;
         Gson gson = new Gson();
 
-        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_REG_PACKING_LIST");
+        logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_REG_SOA");
         logger.info("### Requst URL : {}", IF_ERP_SFDC_REG_SOA);
 
         while (true) {
@@ -50,9 +50,9 @@ public class IF_ERP_SFDC_REG_SOA_biz extends WebCalloutUtil {
             }
 
             // 2. API 요청 규격으로 Convert
-            List<SOA> soaList = new ArrayList<>();
+            List<SOA_REG> soaList = new ArrayList<>();
             for(Map<String, Object> s : soaListMap) {
-                soaList.add(new SOA(s));
+                soaList.add(new SOA_REG(s));
             }
 
             IF_ERP_SFDC_REG_SOA_Req objReq = new IF_ERP_SFDC_REG_SOA_Req();
@@ -62,7 +62,7 @@ public class IF_ERP_SFDC_REG_SOA_biz extends WebCalloutUtil {
             String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_SOA, objReq);
             logger.info("response : {}", responseStr);
 
-            IF_ERP_SFDC_REG_SOA_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_SOA_Res.class);
+            IF_ERP_SFDC_SOA_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_SOA_Res.class);
 
             // 4. 정상 응답 시, I/F Status 변경 (R -> P)
             if("0000".equals(objRes.getResultCode())) {

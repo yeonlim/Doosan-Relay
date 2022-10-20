@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class SHIP_TO {
+public class SHIP_TO_REG {
     /**
      *  1-1. 거래처 코드<br>
      *   - ERP 거래처 코드
@@ -54,9 +54,9 @@ public class SHIP_TO {
      */
     private String cudType;
 
-    public SHIP_TO() { }
+    public SHIP_TO_REG() { }
 
-    public SHIP_TO(Map<String, Object> s) {
+    public SHIP_TO_REG(Map<String, Object> s) {
 
     }
 }

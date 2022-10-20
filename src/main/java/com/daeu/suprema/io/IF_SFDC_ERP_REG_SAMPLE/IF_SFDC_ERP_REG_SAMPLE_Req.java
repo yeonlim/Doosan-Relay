@@ -50,4 +50,16 @@ public class IF_SFDC_ERP_REG_SAMPLE_Req {
 
 		return mapList;
 	}
+
+    public void paramValidChk(IF_SFDC_ERP_REG_SAMPLE_Res objOutput) {
+		if(this.orderId == null 			|| this.orderId.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("orderId is Empty"); 			}
+		else if(this.startOrderDate == null || this.startOrderDate.isEmpty()) 	{ objOutput.setResultCode("1000"); objOutput.setResultMessage("startOrderDate is Empty"); 	}
+		else if(this.productList == null 	|| this.productList.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("productList is Empty"); 		}
+
+		if(!"1000".equals(objOutput.getResultCode())) {
+			for(int i = 0; i < this.productList.size(); i++) {
+				if(this.productList.get(i).getProductCode() == null 	|| "".equals(this.productList.get(i).getProductCode())) { objOutput.setResultCode("1000"); objOutput.setResultMessage(String.format("productList[%d].productCode is Empty", i)); break;	}
+			}
+		}
+    }
 }

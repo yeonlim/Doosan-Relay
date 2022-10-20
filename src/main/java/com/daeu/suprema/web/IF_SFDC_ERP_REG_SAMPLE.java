@@ -36,10 +36,13 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
         try {
             ObjectMapper mapper = new ObjectMapper();
             objInput = mapper.readValue(fRequestBody, IF_SFDC_ERP_REG_SAMPLE_Req.class);
+            objInput.paramValidChk(objOutput);
 
-            /* Business logic start */
-            objOutput = service.execute(objInput);
-            /* Business logic end */
+            if("1000".equals(objOutput.getResultCode())) {
+                /* Business logic start */
+                objOutput = service.execute(objInput);
+                /* Business logic end */
+            }
         } catch (Exception e) {
             logger.error(e.getMessage());
 

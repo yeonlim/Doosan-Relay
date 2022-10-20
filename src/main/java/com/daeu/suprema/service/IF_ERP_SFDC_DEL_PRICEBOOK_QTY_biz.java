@@ -60,7 +60,7 @@ public class IF_ERP_SFDC_DEL_PRICEBOOK_QTY_biz extends WebCalloutUtil {
             String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_DEL_PRICEBOOK_QTY, objReq);
             logger.info("response : {}", responseStr);
 
-            IF_ERP_SFDC_REG_PRICEBOOK_QTY_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_PRICEBOOK_QTY_Res.class);
+            IF_ERP_SFDC_PRICEBOOK_QTY_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_PRICEBOOK_QTY_Res.class);
 
             // 4. 정상 응답 시, I/F Status 변경 (R -> P)
             if("0000".equals(objRes.getResultCode())) {

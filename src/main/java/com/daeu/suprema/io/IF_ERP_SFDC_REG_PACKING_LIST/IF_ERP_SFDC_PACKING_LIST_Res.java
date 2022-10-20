@@ -4,6 +4,6 @@ import com.daeu.suprema.io.ResponseHeader;
 import lombok.Data;
 
 @Data
-public class IF_ERP_SFDC_REG_PACKING_LIST_Res extends ResponseHeader {
+public class IF_ERP_SFDC_PACKING_LIST_Res extends ResponseHeader {
 
 }

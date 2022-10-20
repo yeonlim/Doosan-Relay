@@ -1,8 +1,6 @@
 package com.daeu.suprema.service;
 
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PACKING_LIST.IF_ERP_SFDC_REG_PACKING_LIST_Req;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PACKING_LIST.IF_ERP_SFDC_REG_PACKING_LIST_Res;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PACKING_LIST.PACKING_LIST;
+import com.daeu.suprema.io.IF_ERP_SFDC_REG_PACKING_LIST.*;
 import com.daeu.suprema.repository.IF_ERP_SFDC_PACKING_LIST_repo;
 import com.daeu.suprema.util.HttpRequestUtil;
 import com.daeu.suprema.util.WebCalloutUtil;
@@ -50,19 +48,19 @@ public class IF_ERP_SFDC_DEL_PACKING_LIST_biz extends WebCalloutUtil {
             }
 
             // 2. API 요청 규격으로 Convert
-            List<PACKING_LIST> packingList = new ArrayList<>();
+            List<PACKING_LIST_DEL> packingList = new ArrayList<>();
             for(Map<String, Object> pl : packingListMap) {
-                packingList.add(new PACKING_LIST(pl));
+                packingList.add(new PACKING_LIST_DEL(pl));
             }
 
-            IF_ERP_SFDC_REG_PACKING_LIST_Req objReq = new IF_ERP_SFDC_REG_PACKING_LIST_Req();
+            IF_ERP_SFDC_DEL_PACKING_LIST_Req objReq = new IF_ERP_SFDC_DEL_PACKING_LIST_Req();
             objReq.setPackingList(packingList);
 
             // 3. 요청
             String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_DEL_PACKING_LIST, objReq);
             logger.info("response : {}", responseStr);
 
-            IF_ERP_SFDC_REG_PACKING_LIST_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_PACKING_LIST_Res.class);
+            IF_ERP_SFDC_PACKING_LIST_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_PACKING_LIST_Res.class);
 
             // 4. 정상 응답 시, I/F Status 변경 (R -> P)
             if("0000".equals(objRes.getResultCode())) {

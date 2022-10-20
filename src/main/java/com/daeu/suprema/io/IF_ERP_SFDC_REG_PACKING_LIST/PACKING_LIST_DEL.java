@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class PACKING_LIST {
+public class PACKING_LIST_DEL {
     /**
      *  1-1. 수주 ID (Order SFDC Key)
      */
@@ -46,15 +46,9 @@ public class PACKING_LIST {
      */
     private int viewSeq;
 
-    /**
-     * 1-9. CUD 타입 (C, U, D)<br>
-     *  - C: Insert, U: Update, D: Delete
-     */
-    private String cudType;
+    public PACKING_LIST_DEL() { }
 
-    public PACKING_LIST() { }
-
-    public PACKING_LIST(Map<String, Object> pl) {
+    public PACKING_LIST_DEL(Map<String, Object> pl) {
         this.orderId = pl.get("SFDC_ORDERID").toString();
         this.productCode = pl.get("S_ITEM_CD").toString();
         this.quantity = Double.parseDouble(pl.get("QUANTITY_C").toString());
@@ -63,6 +57,5 @@ public class PACKING_LIST {
         this.boxQuantity = Double.parseDouble(pl.get("BOXQUANTITY_C").toString());
         this.boxDimension = Double.parseDouble(pl.get("BOXDIMENSION_C").toString());
         this.viewSeq = Integer.parseInt(pl.get("VIEW_SEQ").toString());
-        this.cudType = pl.get("IF_ACT_CODE").toString();
     }
 }

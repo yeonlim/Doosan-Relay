@@ -1,7 +1,7 @@
 package com.daeu.suprema.service;
 
 import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.IF_ERP_SFDC_REG_PRICEBOOK_ACC_Req;
-import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.IF_ERP_SFDC_REG_PRICEBOOK_ACC_Res;
+import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.IF_ERP_SFDC_PRICEBOOK_ACC_Res;
 import com.daeu.suprema.io.IF_ERP_SFDC_REG_PRICEBOOK_ACC.PRICEBOOK_ACC_REG;
 import com.daeu.suprema.repository.IF_ERP_SFDC_PRICEBOOK_ACC_repo;
 import com.daeu.suprema.util.HttpRequestUtil;
@@ -62,7 +62,7 @@ public class IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz extends WebCalloutUtil {
             String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_PRICEBOOK_ACC, objReq);
             logger.info("response : {}", responseStr);
 
-            IF_ERP_SFDC_REG_PRICEBOOK_ACC_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_PRICEBOOK_ACC_Res.class);
+            IF_ERP_SFDC_PRICEBOOK_ACC_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_PRICEBOOK_ACC_Res.class);
 
             // 4. 정상 응답 시, I/F Status 변경 (R -> P)
             if("0000".equals(objRes.getResultCode())) {

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class SOA {
+public class SOA_DEL {
     /**
      *  1. Order SFDC Key
      */
@@ -58,15 +58,9 @@ public class SOA {
      */
     private String invoiceDate;
 
-    /**
-     * 1-11. CUD 타입 (C, U, D)<br>
-     *  - C: Insert, U: Update, D: Delete
-     */
-    private String cudType;
+    public SOA_DEL() { }
 
-    public SOA() { }
-
-    public SOA(Map<String, Object> s) {
+    public SOA_DEL(Map<String, Object> s) {
         this.orderId = s.get("SFDC_ORDERID").toString();
         this.invoiceNo = s.get("IV_NO").toString();
         this.accountId = s.get("BP_CD").toString();
@@ -77,6 +71,5 @@ public class SOA {
         this.paymentDueDate = s.get("INCOME_PLAN_DT").toString();
         this.remark = s.get("REMARK").toString();
         this.invoiceDate = s.get("INVOICE_DT").toString();
-        this.cudType = s.get("IF_ACT_CODE").toString();
     }
 }

@@ -160,4 +160,29 @@ public class IF_SFDC_ERP_REG_PO_Req {
 
 		return mapList;
     }
+
+	/**
+	 * 필수 값 체크
+	 * @param objOutput
+	 */
+	public void paramValidChk(IF_SFDC_ERP_REG_PO_Res objOutput) {
+		if(this.orderId == null 			|| this.orderId.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("orderId is Empty"); 			}
+		else if(this.startOrderDate == null || this.startOrderDate.isEmpty()) 	{ objOutput.setResultCode("1000"); objOutput.setResultMessage("startOrderDate is Empty"); 	}
+		else if(this.curCode == null 		|| this.curCode.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("curCode is Empty"); 			}
+		else if(this.soldToParty == null 	|| this.soldToParty.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("soldToParty is Empty"); 		}
+		else if(this.shipToParty == null 	|| this.shipToParty.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("shipToParty is Empty"); 		}
+		else if(this.dealType == null 		|| this.dealType.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("dealType is Empty"); 		}
+		else if(this.payMethod == null 		|| this.payMethod.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("payMethod is Empty"); 		}
+		else if(this.transMethod == null 	|| this.transMethod.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("transMethod is Empty"); 		}
+		else if(this.plantCode == null 		|| this.plantCode.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("plantCode is Empty"); 		}
+		else if(this.vatType == null		|| this.vatType.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("vatType is Empty"); 			}
+		else if(this.productList == null 	|| this.productList.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("productList is Empty"); 		}
+
+		if(!"1000".equals(objOutput.getResultCode())) {
+			for(int i = 0; i < this.productList.size(); i++) {
+				if(this.productList.get(i).getProductCode() == null 	|| "".equals(this.productList.get(i).getProductCode())) { objOutput.setResultCode("1000"); objOutput.setResultMessage(String.format("productList[%d].productCode is Empty", i)); break;	}
+				else if(this.productList.get(i).getOriginCode() == null || "".equals(this.productList.get(i).getOriginCode())) 	{ objOutput.setResultCode("1000"); objOutput.setResultMessage(String.format("productList[%d].originCode is Empty", i)); break;	}
+			}
+		}
+	}
 }

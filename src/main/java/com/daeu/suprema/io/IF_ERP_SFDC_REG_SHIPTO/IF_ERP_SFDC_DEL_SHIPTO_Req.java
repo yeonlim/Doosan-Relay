@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class IF_ERP_SFDC_REG_SHIPTO_Req {
+public class IF_ERP_SFDC_DEL_SHIPTO_Req {
 	/**
 	 * 	1. 파트너 거래처 정보 List
 	 */
-	private List<SHIP_TO_REG> shipToList;
+	private List<SHIP_TO_DEL> shipToList;
 }
