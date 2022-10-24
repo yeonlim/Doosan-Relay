@@ -9,5 +9,5 @@ public class IF_ERP_SFDC_REG_SHIPTO_Req {
 	/**
 	 * 	1. 파트너 거래처 정보 List
 	 */
-	private List<SHIP_TO_REG> shipToList;
+	private List<SHIP_TO> shipToList;
 }

@@ -63,6 +63,11 @@ public class BL {
      */
     private String cudType;
 
+    /**
+     * 1-12. Record ID
+     */
+    private int recordId;
+
     public BL() { }
 
     public BL(Map<String, Object> b) {
@@ -75,5 +80,6 @@ public class BL {
         this.lcDate = b.get("LC_DATE").toString();
         this.lcIssuingBank = b.get("LC_ISSUE_BANK").toString();
         this.cudType = b.get("IF_ACT_CODE").toString();
+        this.recordId = Integer.parseInt(b.get("IF_REC_ID").toString());
     }
 }

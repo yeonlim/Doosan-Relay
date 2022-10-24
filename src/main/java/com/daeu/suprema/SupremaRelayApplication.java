@@ -11,8 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @ImportResource("classpath:batch-config.xml")
 public class SupremaRelayApplication {
-	private static Logger logger = LoggerFactory.getLogger(SupremaRelayApplication.class);
-
 	public static void main(String[] args) {
 		SpringApplication.run(SupremaRelayApplication.class, args);
 	}

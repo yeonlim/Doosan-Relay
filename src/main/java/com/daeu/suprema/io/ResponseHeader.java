@@ -2,6 +2,8 @@ package com.daeu.suprema.io;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ResponseHeader {
     /**
@@ -23,4 +25,6 @@ public class ResponseHeader {
      * 2. interface result status
      */
     private String resultMessage;
+
+    private List<Error> errorList;
 }

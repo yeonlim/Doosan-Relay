@@ -9,5 +9,5 @@ public class IF_ERP_SFDC_REG_PACKING_LIST_Req {
 	/**
 	 * 1. PACKING LIST 정보 List
 	 */
-	private List<PACKING_LIST_REG> packingList;
+	private List<PACKING_LIST> packingList;
 }

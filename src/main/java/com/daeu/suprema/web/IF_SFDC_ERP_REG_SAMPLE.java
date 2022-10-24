@@ -51,7 +51,7 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
             e.printStackTrace(pw);
 
             objOutput.setResultCode("9999");
-            objOutput.setResultMessage("RELAY SERVER ERROR");
+            objOutput.setResultMessage("Internal Server Error");
 
             try {
                 sw.close();
