@@ -30,13 +30,13 @@ public class IF_ERP_SFDC_REG_SOA_repo {
     private NamedParameterJdbcTemplate primaryNamedJdbcTemplate;
 
     private final String[] COMMON_FIELDS = {"IF_REC_ID", "IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS", "IF_ERR_MSG"};
-    private final String[] IF_FIELDS = {"SFDC_ORDERID", "IV_NO", "BP_CD", "CURRENCY", "BILL_AMT", "COLLECT_AMT", "BILL_DT", "INCOME_PLAN_DT", "REMARK", "INVOICE_DT", "BILL_NO"};
+    private final String[] IF_FIELDS = {"SFDC_ORDERID", "IV_NO", "BP_CD", "CURRENCY", "BILL_AMT", "COLLECT_AMT", "FORMAT(BILL_DT, 'yyyy-MM-dd') BILL_DT", "FORMAT(INCOME_PLAN_DT, 'yyyy-MM-dd') INCOME_PLAN_DT", "REMARK", "FORMAT(INVOICE_DT, 'yyyy-MM-dd') INVOICE_DT", "BILL_NO", "CASE WHEN BILL_AMT <= COLLECT_AMT THEN 'Paid' ELSE 'Pending' END paymentStatus", "BILL_AMT - COLLECT_AMT AS unpaidAmount"};
 
     private final String SELECT_SOA_LIST =
-            "SELECT TOP 40" + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
+            "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
                     " FROM dbo.IF_ERP_SFDC_INFO_SOA" +
                     " WHERE IF_STATUS = 'R'" +
-                    " ORDER BY IF_CRT_DT ASC";
+                    " ORDER BY IF_REC_ID ASC";
 
     private final String UPDATE_SOA_LIST =
             "UPDATE dbo.IF_ERP_SFDC_INFO_SOA" +
@@ -50,29 +50,29 @@ public class IF_ERP_SFDC_REG_SOA_repo {
 
     @Transactional(readOnly = true)
     public List<Map<String, Object>> SELECT_SOA_LIST(int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, SELECT_SOA_LIST);
+        logger.info("### Query #{} : {}", prcCnt, SELECT_SOA_LIST);
 
         List<Map<String, Object>> result = jdbcTemplate.queryForList(SELECT_SOA_LIST);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
         return result;
     }
 
     public boolean UPDATE_SOA_LIST(List<Integer> ifRecIdList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_SOA_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, ifRecIdList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_SOA_LIST);
+        logger.info("### Data #{} : {}", prcCnt, ifRecIdList);
 
         MapSqlParameterSource inQueryParams = new MapSqlParameterSource();
         inQueryParams.addValue("ifRecIdList", ifRecIdList);
 
         int result = primaryNamedJdbcTemplate.update(UPDATE_SOA_LIST, inQueryParams);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
 
         return result == 0;
     }
 
     public boolean UPDATE_SOA_ERROR_LIST(List<Error> errorList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_SOA_ERROR_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, errorList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_SOA_ERROR_LIST);
+        logger.info("### Data #{} : {}", prcCnt, errorList);
 
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(errorList);
         int[] result = primaryNamedJdbcTemplate.batchUpdate(UPDATE_SOA_ERROR_LIST, batch);

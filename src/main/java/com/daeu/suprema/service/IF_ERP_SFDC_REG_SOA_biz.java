@@ -74,7 +74,7 @@ public class IF_ERP_SFDC_REG_SOA_biz extends WebCalloutUtil {
                 }
                 repository.UPDATE_SOA_ERROR_LIST(objRes.getErrorList(), prcCnt);
             }
-            repository.UPDATE_SOA_LIST(ifRecIdList, prcCnt);
+            if(!ifRecIdList.isEmpty()) repository.UPDATE_SOA_LIST(ifRecIdList, prcCnt);
 
             try {
                 Thread.sleep(1000);

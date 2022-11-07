@@ -30,12 +30,12 @@ public class IF_ERP_SFDC_REG_BL_repo {
     private NamedParameterJdbcTemplate primaryNamedJdbcTemplate;
 
     private final String[] COMMON_FIELDS = {"IF_REC_ID", "IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS", "IF_ERR_MSG"};
-    private final String[] IF_FIELDS = {"SFDC_ORDERID", "SFDC_ORDERPRODUCTID", "HS_CD_H", "BL_DOC_NO", "INV_DT", "PROMISE_DT", "ACTUAL_GI_DT", "S_ITEM_CD", "SERIAL_NO", "GI_QTY", "HS_NO_D", "LC_NO", "LC_DATE", "LC_ISSUE_BANK"};
+    private final String[] IF_FIELDS = {"SFDC_ORDERID", "SFDC_ORDERPRODUCTID", "HS_CD_H", "BL_DOC_NO", "FORMAT(INV_DT, 'yyyy-MM-dd') INV_DT", "FORMAT(PROMISE_DT, 'yyyy-MM-dd') PROMISE_DT", "FORMAT(ACTUAL_GI_DT, 'yyyy-MM-dd') ACTUAL_GI_DT", "S_ITEM_CD", "SERIAL_NO", "GI_QTY", "HS_CD_D", "LC_NO", "FORMAT(LC_DATE, 'yyyy-MM-dd') LC_DATE", "LC_ISSUE_BANK"};
 
     private final String SELECT_BL_LIST =
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
                     " FROM dbo.IF_ERP_SFDC_INFO_BL" +
-                    " WHERE IF_STATUS = 'R'" +
+                    " WHERE IF_STATUS = 'R' AND IF_REC_ID >= 2026" +
                     " ORDER BY IF_CRT_DT ASC";
 
     private final String UPDATE_BL_LIST =
@@ -50,29 +50,29 @@ public class IF_ERP_SFDC_REG_BL_repo {
 
     @Transactional(readOnly = true)
     public List<Map<String, Object>> SELECT_BL_LIST(int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, SELECT_BL_LIST);
+        logger.info("### Query #{} : {}", prcCnt, SELECT_BL_LIST);
 
         List<Map<String, Object>> result = jdbcTemplate.queryForList(SELECT_BL_LIST);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
         return result;
     }
 
     public boolean UPDATE_BL_LIST(List<Integer> ifRecIdList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_BL_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, ifRecIdList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_BL_LIST);
+        logger.info("### Data #{} : {}", prcCnt, ifRecIdList);
 
         MapSqlParameterSource inQueryParams = new MapSqlParameterSource();
         inQueryParams.addValue("ifRecIdList", ifRecIdList);
 
         int result = primaryNamedJdbcTemplate.update(UPDATE_BL_LIST, inQueryParams);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
 
         return result == 0;
     }
 
     public boolean UPDATE_BL_ERROR_LIST(List<Error> errorList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_BL_ERROR_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, errorList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_BL_ERROR_LIST);
+        logger.info("### Data #{} : {}", prcCnt, errorList);
 
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(errorList);
         int[] result = primaryNamedJdbcTemplate.batchUpdate(UPDATE_BL_ERROR_LIST, batch);

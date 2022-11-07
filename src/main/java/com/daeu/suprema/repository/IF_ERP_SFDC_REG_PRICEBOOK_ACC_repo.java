@@ -36,7 +36,7 @@ public class IF_ERP_SFDC_REG_PRICEBOOK_ACC_repo {
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
                     " FROM dbo.IF_ERP_SFDC_INFO_PRICEBOOK_ACC" +
                     " WHERE IF_STATUS = 'R'" +
-                    " ORDER BY IF_CRT_DT ASC";
+                    " ORDER BY IF_REC_ID ASC";
 
     private final String UPDATE_PRICEBOOK_ACC_LIST =
             "UPDATE dbo.IF_ERP_SFDC_INFO_PRICEBOOK_ACC" +
@@ -50,29 +50,29 @@ public class IF_ERP_SFDC_REG_PRICEBOOK_ACC_repo {
 
     @Transactional(readOnly = true)
     public List<Map<String, Object>> SELECT_PRICEBOOK_ACC_LIST(int prcCnt) {
-        logger.debug("### Query : {}", SELECT_PRICEBOOK_ACC_LIST);
+        logger.info("### Query : {}", SELECT_PRICEBOOK_ACC_LIST);
 
         List<Map<String, Object>> result = jdbcTemplate.queryForList(SELECT_PRICEBOOK_ACC_LIST);
-        logger.debug("### Result : {}", result);
+        logger.info("### Result : {}", result);
         return result;
     }
 
     public boolean UPDATE_PRICEBOOK_ACC_LIST(List<Integer> ifRecIdList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_PRICEBOOK_ACC_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, ifRecIdList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_PRICEBOOK_ACC_LIST);
+        logger.info("### Data #{} : {}", prcCnt, ifRecIdList);
 
         MapSqlParameterSource inQueryParams = new MapSqlParameterSource();
         inQueryParams.addValue("ifRecIdList", ifRecIdList);
 
         int result = primaryNamedJdbcTemplate.update(UPDATE_PRICEBOOK_ACC_LIST, inQueryParams);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
 
         return result == 0;
     }
 
     public boolean UPDATE_PRICEBOOK_ACC_ERROR_LIST(List<Error> errorList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_PRICEBOOK_ACC_ERROR_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, errorList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_PRICEBOOK_ACC_ERROR_LIST);
+        logger.info("### Data #{} : {}", prcCnt, errorList);
 
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(errorList);
         int[] result = primaryNamedJdbcTemplate.batchUpdate(UPDATE_PRICEBOOK_ACC_ERROR_LIST, batch);

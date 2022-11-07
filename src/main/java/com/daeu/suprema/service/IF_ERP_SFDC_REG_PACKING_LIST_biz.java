@@ -74,7 +74,7 @@ public class IF_ERP_SFDC_REG_PACKING_LIST_biz extends WebCalloutUtil {
                 }
                 repository.UPDATE_PACKING_ERROR_LIST(objRes.getErrorList(), prcCnt);
             }
-            repository.UPDATE_PACKING_LIST(ifRecIdList, prcCnt);
+            if(!ifRecIdList.isEmpty()) repository.UPDATE_PACKING_LIST(ifRecIdList, prcCnt);
 
             try {
                 Thread.sleep(1000);

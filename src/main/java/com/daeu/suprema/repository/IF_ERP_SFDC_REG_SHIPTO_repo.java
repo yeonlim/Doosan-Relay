@@ -30,13 +30,22 @@ public class IF_ERP_SFDC_REG_SHIPTO_repo {
     private NamedParameterJdbcTemplate primaryNamedJdbcTemplate;
 
     private final String[] COMMON_FIELDS = {"IF_REC_ID", "IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS", "IF_ERR_MSG"};
-    private final String[] IF_FIELDS = {"BP_CD", "PARTNER_BP_CD", "USE_FG"};
+    private final String[] ACCOUNT_FIELDS = {"BP_CD AS PARTNER_BP_CD", "BP_RGST_NO", "BP_FULL_NM", "ADDR_ENG", "TEL_NO1", "CONTRY_CD", "BP_PRSN_NM", "CURRENCY", "PAY_METH", "DEAL_TYPE", "BOOS_ORDER_YN"};
 
     private final String SELECT_SHIPTO_LIST =
-            "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
-                    " FROM dbo.IF_ERP_SFDC_INFO_SHIPTO" +
-                    " WHERE IF_STATUS != 'P'" +
-                    " ORDER BY IF_CRT_DT ASC";
+            "SELECT TOP 40 IESIS.IF_REC_ID, IESIS.IF_ACT_CODE, IESIS.IF_CRT_DT, IESIS.IF_STATUS, IESIS.IF_ERR_MSG, IESIS.BP_CD, IESIS.PARTNER_BP_CD, IIF(IESIS.USE_FG = 'Y', 'True', 'False') AS USE_FG, BP_RGST_NO, BP_FULL_NM, ADDR_ENG, TEL_NO1, CONTRY_CD, BP_PRSN_NM, CURRENCY, PAY_METH, DEAL_TYPE" +
+                    " FROM dbo.IF_ERP_SFDC_INFO_SHIPTO IESIS" +
+                    "     INNER JOIN (" +
+                    "         SELECT BP_CD, BP_RGST_NO, BP_FULL_NM, ADDR_ENG, TEL_NO1, CONTRY_CD, BP_PRSN_NM, CURRENCY, PAY_METH, DEAL_TYPE" +
+                    "         FROM dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
+                    "         WHERE IF_REC_ID IN (" +
+                    "             SELECT MAX(IF_REC_ID)" +
+                    "             FROM dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
+                    "             WHERE BP_CD IN (SELECT TOP 40 PARTNER_BP_CD FROM IF_ERP_SFDC_INFO_SHIPTO ORDER BY IF_CRT_DT ASC)" +
+                    "             GROUP BY BP_CD)" +
+                    "     )IESIA ON IESIS.PARTNER_BP_CD = IESIA.BP_CD" +
+                    " WHERE IESIS.IF_STATUS = 'R'" +
+                    " ORDER BY IESIS.IF_REC_ID ASC";
 
     private final String UPDATE_SHIPTO_LIST =
             "UPDATE dbo.IF_ERP_SFDC_INFO_SHIPTO" +
@@ -48,34 +57,86 @@ public class IF_ERP_SFDC_REG_SHIPTO_repo {
                     " SET IF_STATUS = 'E', IF_PRC_DT = GETDATE(), IF_ERR_MSG = CONCAT('[', :errorCode, '] ', :errorMessage)" +
                     " WHERE IF_REC_ID = :recordId";
 
+    private final String SELECT_ACCOUNT_LIST =
+            "SELECT IESIA.*, IESIS.BP_CD, IIF(IESIS.USE_FG = 'Y', 'True', 'False') AS USE_FG" +
+                    " FROM dbo.IF_ERP_SFDC_INFO_SHIPTO IESIS" +
+                    "     INNER JOIN (" +
+                    "         SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", ACCOUNT_FIELDS) +
+                    "         FROM dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
+                    "         WHERE IF_STATUS = 'R' AND IF_ACT_CODE = 'U' AND BOOS_ORDER_YN = 'N'" +
+                    "         ORDER BY IF_REC_ID ASC" +
+                    "     )IESIA ON IESIS.PARTNER_BP_CD = IESIA.PARTNER_BP_CD";
+
+    private final String UPDATE_ACCOUNT_LIST =
+            "UPDATE dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
+                    " SET IF_STATUS = 'P', IF_PRC_DT = GETDATE(), IF_ERR_MSG = 'OK'" +
+                    " WHERE IF_REC_ID IN (:ifRecIdList)";
+
+    private final String UPDATE_ACCOUNT_ERROR_LIST =
+            "UPDATE dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
+                    " SET IF_STATUS = 'E', IF_PRC_DT = GETDATE(), IF_ERR_MSG = CONCAT('[', :errorCode, '] ', :errorMessage)" +
+                    " WHERE IF_REC_ID = :recordId";
     @Transactional(readOnly = true)
     public List<Map<String, Object>> SELECT_SHIPTO_LIST(int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, SELECT_SHIPTO_LIST);
+        logger.info("### Query #{} : {}", prcCnt, SELECT_SHIPTO_LIST);
 
         List<Map<String, Object>> result = jdbcTemplate.queryForList(SELECT_SHIPTO_LIST);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
         return result;
     }
 
     public boolean UPDATE_SHIPTO_LIST(List<Integer> ifRecIdList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_SHIPTO_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, ifRecIdList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_SHIPTO_LIST);
+        logger.info("### Data #{} : {}", prcCnt, ifRecIdList);
 
         MapSqlParameterSource inQueryParams = new MapSqlParameterSource();
         inQueryParams.addValue("ifRecIdList", ifRecIdList);
 
         int result = primaryNamedJdbcTemplate.update(UPDATE_SHIPTO_LIST, inQueryParams);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
 
         return result == 0;
     }
 
     public boolean UPDATE_SHIPTO_ERROR_LIST(List<Error> errorList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_SHIPTO_ERROR_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, errorList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_SHIPTO_ERROR_LIST);
+        logger.info("### Data #{} : {}", prcCnt, errorList);
 
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(errorList);
         int[] result = primaryNamedJdbcTemplate.batchUpdate(UPDATE_SHIPTO_ERROR_LIST, batch);
+        logger.info("### Result #{} : {}", prcCnt, result);
+
+        return Arrays.asList(result).contains(0);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> SELECT_ACCOUNT_LIST(int prcCnt) {
+        logger.info("### Query #{} : {}", prcCnt, SELECT_ACCOUNT_LIST);
+
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(SELECT_ACCOUNT_LIST);
+        logger.info("### Result #{} : {}", prcCnt, result);
+        return result;
+    }
+
+    public boolean UPDATE_ACCOUNT_LIST(List<Integer> ifRecIdList, int prcCnt) {
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_ACCOUNT_LIST);
+        logger.info("### Data #{} : {}", prcCnt, ifRecIdList);
+
+        MapSqlParameterSource inQueryParams = new MapSqlParameterSource();
+        inQueryParams.addValue("ifRecIdList", ifRecIdList);
+
+        int result = primaryNamedJdbcTemplate.update(UPDATE_ACCOUNT_LIST, inQueryParams);
+        logger.info("### Result #{} : {}", prcCnt, result);
+
+        return result == 0;
+    }
+
+    public boolean UPDATE_ACCOUNT_ERROR_LIST(List<Error> errorList, int prcCnt) {
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_ACCOUNT_ERROR_LIST);
+        logger.info("### Data #{} : {}", prcCnt, errorList);
+
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(errorList);
+        int[] result = primaryNamedJdbcTemplate.batchUpdate(UPDATE_ACCOUNT_ERROR_LIST, batch);
         logger.info("### Result #{} : {}", prcCnt, result);
 
         return Arrays.asList(result).contains(0);

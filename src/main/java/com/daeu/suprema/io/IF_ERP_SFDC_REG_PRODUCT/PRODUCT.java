@@ -24,7 +24,7 @@ public class PRODUCT {
     /**
      *  1-4. 순중량
      */
-    private int netWeight;
+    private double netWeight;
 
     /**
      *  1-5. H/S 코드<br>
@@ -69,7 +69,7 @@ public class PRODUCT {
         this.productCode = p.get("S_ITEM_CD").toString();
         this.productName = p.get("S_ITEM_NM").toString();
         this.productGroupCode = p.get("ITEM_GROUP_CD") == null ? null : p.get("ITEM_GROUP_CD").toString();
-        this.netWeight = p.get("UNIT_WEIGHT") == null ? 0 : Integer.parseInt(p.get("UNIT_WEIGHT").toString());
+        this.netWeight = p.get("UNIT_WEIGHT") == null ? 0 : Double.parseDouble(p.get("UNIT_WEIGHT").toString());
         this.hsCode = p.get("HSCode_c") == null ? null : p.get("HSCode_c").toString();
         this.description = p.get("SPEC") == null ? null : p.get("SPEC").toString();
         this.forcastTarget = p.get("forcastTarget") == null ? false : Boolean.parseBoolean(p.get("forcastTarget").toString());

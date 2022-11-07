@@ -38,7 +38,7 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
             objInput = mapper.readValue(fRequestBody, IF_SFDC_ERP_REG_SAMPLE_Req.class);
             objInput.paramValidChk(objOutput);
 
-            if("1000".equals(objOutput.getResultCode())) {
+            if(!"1000".equals(objOutput.getResultCode())) {
                 /* Business logic start */
                 objOutput = service.execute(objInput);
                 /* Business logic end */

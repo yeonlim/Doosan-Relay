@@ -20,7 +20,7 @@ public class PRICEBOOK_ACC {
     /**
      * 1-3. 할인율
      */
-    private int discountRate;
+    private double discountRate;
 
     /**
      * 1-4. CUD 타입 (C, D)<br>
@@ -38,7 +38,7 @@ public class PRICEBOOK_ACC {
     public PRICEBOOK_ACC(Map<String, Object> pa) {
         this.accountId = pa.get("BP_CD").toString();
         this.productGroupCode = pa.get("ITEM_GROUP_CD").toString();
-        this.discountRate = Integer.parseInt(pa.get("DC_RATE").toString());
+        this.discountRate = Double.parseDouble(pa.get("DC_RATE").toString());
         this.cudType = pa.get("IF_ACT_CODE").toString();
         this.recordId = Integer.parseInt(pa.get("IF_REC_ID").toString());
     }

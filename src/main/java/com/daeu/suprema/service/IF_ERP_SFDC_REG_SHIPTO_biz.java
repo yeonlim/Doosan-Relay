@@ -40,6 +40,7 @@ public class IF_ERP_SFDC_REG_SHIPTO_biz extends WebCalloutUtil {
         logger.info("=========================== [{}] ===========================", "IF_ERP_SFDC_REG_SHIPTO");
         logger.info("### Requst URL : {}", IF_ERP_SFDC_REG_SHIPTO);
 
+        // SHIP_TO >> ACCOUNT
         while (true) {
             // 1. 납품처 정보 조회
             List<Map<String, Object>> shiptoListMap = repository.SELECT_SHIPTO_LIST(prcCnt);
@@ -72,7 +73,7 @@ public class IF_ERP_SFDC_REG_SHIPTO_biz extends WebCalloutUtil {
                 }
                 repository.UPDATE_SHIPTO_ERROR_LIST(objRes.getErrorList(), prcCnt);
             }
-            repository.UPDATE_SHIPTO_LIST(ifRecIdList, prcCnt);
+            if(!ifRecIdList.isEmpty()) repository.UPDATE_SHIPTO_LIST(ifRecIdList, prcCnt);
 
             try {
                 Thread.sleep(1000);
@@ -80,6 +81,50 @@ public class IF_ERP_SFDC_REG_SHIPTO_biz extends WebCalloutUtil {
                 e.printStackTrace();
             }
         }
+
+        // ACCOUNT >> SHIP_TO
+        prcCnt = 0;
+        while (true) {
+            // 1. 납품처 정보 조회
+            List<Map<String, Object>> accountListMap = repository.SELECT_ACCOUNT_LIST(prcCnt);
+            if(accountListMap == null || accountListMap.isEmpty()) {
+                logger.info("Terminate the batch as there are no Rows to be interfaced.");
+                break;
+            }
+
+            // 2. API 요청 규격으로 Convert
+            List<SHIP_TO> accountList = new ArrayList<>();
+            List<Integer> ifRecIdList = new ArrayList<>();
+            for(Map<String, Object> s : accountListMap) {
+                accountList.add(new SHIP_TO(s));
+                ifRecIdList.add(Integer.parseInt(s.get("IF_REC_ID").toString()));
+            }
+
+            IF_ERP_SFDC_REG_SHIPTO_Req objReq = new IF_ERP_SFDC_REG_SHIPTO_Req();
+            objReq.setShipToList(accountList);
+
+            // 3. 요청
+            String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_SHIPTO, objReq);
+            logger.info("response : {}", responseStr);
+
+            IF_ERP_SFDC_REG_SHIPTO_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_SHIPTO_Res.class);
+
+            // 4. 정상 응답 시, I/F Status 변경 (R -> P)
+            if(objRes.getErrorList() != null && objRes.getErrorList().size() > 0) {
+                for(Error error : objRes.getErrorList()) {
+                    ifRecIdList.remove(new Integer(error.getRecordId()));
+                }
+                repository.UPDATE_ACCOUNT_ERROR_LIST(objRes.getErrorList(), prcCnt);
+            }
+            if(!ifRecIdList.isEmpty()) repository.UPDATE_ACCOUNT_LIST(ifRecIdList, prcCnt);
+
+            try {
+                Thread.sleep(1000);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         logger.info("=========================================================================");
     }
 }

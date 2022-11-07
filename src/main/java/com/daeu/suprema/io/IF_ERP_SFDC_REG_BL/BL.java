@@ -58,28 +58,23 @@ public class BL {
     private List<SERIAL_NO> serialNoList;
 
     /**
-     * 1-11. CUD 타입 (C, U, D)<br>
-     *  - C: Insert, U: Update, D: Delete
-     */
-    private String cudType;
-
-    /**
-     * 1-12. Record ID
+     * 1-11. Record ID
      */
     private int recordId;
 
     public BL() { }
 
     public BL(Map<String, Object> b) {
+        boolean flag = "D".equals(b.get("IF_ACT_CODE").toString());
+
         this.orderId = b.get("SFDC_ORDERID").toString();
-        this.orderHsCode = b.get("HS_CD_H").toString();
-        this.blNum = b.get("BL_DOC_NO").toString();
-        this.releaseRequestDate = b.get("INV_DT").toString();
-        this.releaseExpectedDate = b.get("PROMISE_DT").toString();
-        this.lcNo = b.get("LC_NO").toString();
-        this.lcDate = b.get("LC_DATE").toString();
-        this.lcIssuingBank = b.get("LC_ISSUE_BANK").toString();
-        this.cudType = b.get("IF_ACT_CODE").toString();
+        this.orderHsCode = flag ? null : b.get("HS_CD_H").toString();
+        this.blNum = flag ? null : b.get("BL_DOC_NO").toString();
+        this.releaseRequestDate = flag ? null : b.get("INV_DT").toString();
+        this.releaseExpectedDate = flag ? null : b.get("PROMISE_DT").toString();
+        this.lcNo = flag || b.get("LC_NO") == null ? null : b.get("LC_NO").toString();
+        this.lcDate = flag || b.get("LC_DATE") == null ? null : b.get("LC_DATE").toString();
+        this.lcIssuingBank = flag || b.get("LC_ISSUE_BANK") == null ? null : b.get("LC_ISSUE_BANK").toString();
         this.recordId = Integer.parseInt(b.get("IF_REC_ID").toString());
     }
 }

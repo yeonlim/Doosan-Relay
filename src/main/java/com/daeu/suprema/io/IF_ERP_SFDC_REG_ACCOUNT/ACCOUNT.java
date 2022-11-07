@@ -61,7 +61,7 @@ public class ACCOUNT {
     private String dealType;
 
     /**
-     * 1-11. CUD 타입 (C, U, D)<br>
+     * 1-12. CUD 타입 (C, U, D)<br>
      *  - C: Insert, U: Update, D: Delete
      */
     private String cudType;

@@ -24,7 +24,18 @@ public class SERIAL_NO {
     /**
      *  1-10-4. 출고수량
      */
-    private int quantity;
+    private double quantity;
+
+    /**
+     *  1-10-5. CUD 타입 (C, U, D)<br>
+     *  - C: Insert, U: Update, D: Delete
+     */
+    private String cudType;
+
+    /**
+     *  1-10-6. Record ID
+     */
+    private int recordId;
 
     public SERIAL_NO() { }
 
@@ -32,6 +43,8 @@ public class SERIAL_NO {
         this.productCode = s.get("S_ITEM_CD").toString();
         this.serialNo = s.get("SERIAL_NO").toString();
         this.releaseDate = s.get("ACTUAL_GI_DT").toString();
-        this.quantity = Integer.parseInt(s.get("GI_QTY").toString());
+        this.quantity = Double.parseDouble(s.get("GI_QTY").toString());
+        this.cudType = s.get("IF_ACT_CODE").toString();
+        this.recordId = Integer.parseInt(s.get("IF_REC_ID").toString());
     }
 }

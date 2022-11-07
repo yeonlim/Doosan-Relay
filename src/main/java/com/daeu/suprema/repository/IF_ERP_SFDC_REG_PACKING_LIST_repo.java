@@ -35,16 +35,16 @@ public class IF_ERP_SFDC_REG_PACKING_LIST_repo {
     private final String SELECT_PACKING_LIST =
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
                     " FROM dbo.IF_ERP_SFDC_INFO_PACKING_LIST" +
-                    " WHERE IF_STATUS = 'R' AND IF_ACT_CODE != 'D'" +
-                    " ORDER BY IF_CRT_DT ASC";
+                    " WHERE IF_STATUS = 'R'" +
+                    " ORDER BY IF_REC_ID ASC";
 
     private final String UPDATE_PACKING_LIST =
-            "UPDATE dbo.IF_ERP_SFDC_INFO_PACKING" +
+            "UPDATE dbo.IF_ERP_SFDC_INFO_PACKING_LIST" +
                     " SET IF_STATUS = 'P', IF_PRC_DT = GETDATE(), IF_ERR_MSG = 'OK'" +
                     " WHERE IF_REC_ID IN (:ifRecIdList)";
 
     private final String UPDATE_PACKING_ERROR_LIST =
-            "UPDATE dbo.IF_ERP_SFDC_INFO_PACKING" +
+            "UPDATE dbo.IF_ERP_SFDC_INFO_PACKING_LIST" +
                     " SET IF_STATUS = 'E', IF_PRC_DT = GETDATE(), IF_ERR_MSG = CONCAT('[', :errorCode, '] ', :errorMessage)" +
                     " WHERE IF_REC_ID = :recordId";
 
@@ -58,21 +58,21 @@ public class IF_ERP_SFDC_REG_PACKING_LIST_repo {
     }
 
     public boolean UPDATE_PACKING_LIST(List<Integer> ifRecIdList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_PACKING_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, ifRecIdList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_PACKING_LIST);
+        logger.info("### Data #{} : {}", prcCnt, ifRecIdList);
 
         MapSqlParameterSource inQueryParams = new MapSqlParameterSource();
         inQueryParams.addValue("ifRecIdList", ifRecIdList);
 
         int result = primaryNamedJdbcTemplate.update(UPDATE_PACKING_LIST, inQueryParams);
-        logger.debug("### Result #{} : {}", prcCnt, result);
+        logger.info("### Result #{} : {}", prcCnt, result);
 
         return result == 0;
     }
 
     public boolean UPDATE_PACKING_ERROR_LIST(List<Error> errorList, int prcCnt) {
-        logger.debug("### Query #{} : {}", prcCnt, UPDATE_PACKING_ERROR_LIST);
-        logger.debug("### Data #{} : {}", prcCnt, errorList);
+        logger.info("### Query #{} : {}", prcCnt, UPDATE_PACKING_ERROR_LIST);
+        logger.info("### Data #{} : {}", prcCnt, errorList);
 
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(errorList);
         int[] result = primaryNamedJdbcTemplate.batchUpdate(UPDATE_PACKING_ERROR_LIST, batch);

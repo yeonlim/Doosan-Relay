@@ -56,7 +56,7 @@ public class IF_ERP_SFDC_REG_BL_biz extends WebCalloutUtil {
 
             // 2-1. OrderId 매핑 작업
             for(Map<String, Object> b : blListMap) {
-                String orderId = b.get("orderId").toString();
+                String orderId = b.get("SFDC_ORDERID").toString();
                 ifRecIdList.add(Integer.parseInt(b.get("IF_REC_ID").toString()));
 
                 List<Map<String, Object>> blOrderList = blOrderMap.get(orderId);
@@ -70,19 +70,21 @@ public class IF_ERP_SFDC_REG_BL_biz extends WebCalloutUtil {
 
             // 2-2. Order별 ProductList, SerialNoList 등 설정
             for(List<Map<String, Object>> bList : blOrderMap.values()) {
-                BL bl = new BL(bList.get(0));
+
+                // Order 정보 설정 (가장 마지막 Index의 값으로 설정)
+                BL bl = new BL(bList.get(bList.size() - 1));
+
 
                 Map<String, PRODUCT> productMap = new HashMap<>();
                 List<SERIAL_NO> serialNoList = new ArrayList<>();
-                for(Map<String, Object> o : bList) {
-                    String productId = o.get("SFDC_ORDERPRODUCTID").toString();
+                for(Map<String, Object> b : bList) {
 
-                    PRODUCT p = productMap.get(productId);
-                    if(p == null) {
-                        productMap.put(productId, new PRODUCT(o));
-                    }
+                    // Order Product 정보 설정
+                    PRODUCT product = new PRODUCT(b);
+                    productMap.put(product.getProductId(), product);
 
-                    serialNoList.add(new SERIAL_NO(o));
+                    // Serial No 정보 설정
+                    serialNoList.add(new SERIAL_NO(b));
                 }
 
                 bl.setProductList(new ArrayList<>(productMap.values()));
@@ -106,7 +108,7 @@ public class IF_ERP_SFDC_REG_BL_biz extends WebCalloutUtil {
                 }
                 repository.UPDATE_BL_ERROR_LIST(objRes.getErrorList(), prcCnt);
             }
-            repository.UPDATE_BL_LIST(ifRecIdList, prcCnt);
+            if(!ifRecIdList.isEmpty()) repository.UPDATE_BL_LIST(ifRecIdList, prcCnt);
 
             try {
                 Thread.sleep(1000);

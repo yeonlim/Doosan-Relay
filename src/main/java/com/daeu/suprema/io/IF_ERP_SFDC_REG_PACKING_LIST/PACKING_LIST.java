@@ -39,7 +39,7 @@ public class PACKING_LIST {
     /**
      *  1-7. Box 코드
      */
-    private double boxDimension;
+    private String boxDimension;
 
     /**
      *  1-8. View Seq
@@ -66,7 +66,7 @@ public class PACKING_LIST {
         this.productWeight = Double.parseDouble(pl.get("PRODUCTWEIGHT_C").toString());
         this.totalWeight = Double.parseDouble(pl.get("TOTALWEIGHT_C").toString());
         this.boxQuantity = Double.parseDouble(pl.get("BOXQUANTITY_C").toString());
-        this.boxDimension = Double.parseDouble(pl.get("BOXDIMENSION_C").toString());
+        this.boxDimension = pl.get("BOXDIMENSION_C") == null ? "" : pl.get("BOXDIMENSION_C").toString();
         this.viewSeq = Integer.parseInt(pl.get("VIEW_SEQ").toString());
         this.cudType = pl.get("IF_ACT_CODE").toString();
         this.recordId = Integer.parseInt(pl.get("IF_REC_ID").toString());

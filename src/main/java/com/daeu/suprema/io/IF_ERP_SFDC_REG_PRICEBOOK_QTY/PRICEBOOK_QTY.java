@@ -18,39 +18,34 @@ public class PRICEBOOK_QTY {
     private String dealTypeCode;
 
     /**
-     *  1-3. 단위
+     *  1-3. 수량(From)
      */
-    private String saleUnit;
+    private double quantityFrom;
 
     /**
-     *  1-4. 수량(From)
+     *  1-4. 수량(To)
      */
-    private int quantityFrom;
+    private double quantityTo;
 
     /**
-     *  1-5. 수량(To)
-     */
-    private int quantityTo;
-
-    /**
-     *  1-6. 통화<br>
+     *  1-5. 통화<br>
      *   - USD, KRW, EUR, JPY
      */
     private String currencyCode;
 
     /**
-     *  1-7. 단가
+     *  1-6. 단가
      */
-    private long unitPrice;
+    private double unitPrice;
 
     /**
-     *  1-8. CUD 타입 (C, D)<br>
+     *  1-7. CUD 타입 (C, D)<br>
      *   - C: Insert, D: Delete
      */
     private String cudType;
 
     /**
-     * 1-9. Record ID
+     * 1-8. Record ID
      */
     private int recordId;
 
@@ -59,11 +54,10 @@ public class PRICEBOOK_QTY {
     public PRICEBOOK_QTY(Map<String, Object> pq) {
         this.productGroupCode = pq.get("ITEM_GROUP_CD").toString();
         this.dealTypeCode = pq.get("DEAL_TYPE").toString();
-        this.saleUnit = pq.get("SALES_UNIT").toString();
-        this.quantityFrom = Integer.parseInt(pq.get("FROM_AMT").toString());
-        this.quantityTo = Integer.parseInt(pq.get("TO_AMT").toString());
+        this.quantityFrom = Double.parseDouble(pq.get("FROM_AMT").toString());
+        this.quantityTo = Double.parseDouble(pq.get("TO_AMT").toString());
         this.currencyCode = pq.get("CURRENCY").toString();
-        this.unitPrice = Long.parseLong(pq.get("ITEM_PRICE").toString());
+        this.unitPrice = Double.parseDouble(pq.get("ITEM_PRICE").toString());
         this.cudType = pq.get("IF_ACT_CODE").toString();
         this.recordId = Integer.parseInt(pq.get("IF_REC_ID").toString());
     }
