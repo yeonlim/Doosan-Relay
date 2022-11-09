@@ -30,7 +30,7 @@ public class IF_ERP_SFDC_REG_SOA_repo {
     private NamedParameterJdbcTemplate primaryNamedJdbcTemplate;
 
     private final String[] COMMON_FIELDS = {"IF_REC_ID", "IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS", "IF_ERR_MSG"};
-    private final String[] IF_FIELDS = {"SFDC_ORDERID", "IV_NO", "BP_CD", "CURRENCY", "BILL_AMT", "COLLECT_AMT", "FORMAT(BILL_DT, 'yyyy-MM-dd') BILL_DT", "FORMAT(INCOME_PLAN_DT, 'yyyy-MM-dd') INCOME_PLAN_DT", "REMARK", "FORMAT(INVOICE_DT, 'yyyy-MM-dd') INVOICE_DT", "BILL_NO", "CASE WHEN BILL_AMT <= COLLECT_AMT THEN 'Paid' ELSE 'Pending' END paymentStatus", "BILL_AMT - COLLECT_AMT AS unpaidAmount"};
+    private final String[] IF_FIELDS = {"SFDC_ORDERID", "IV_NO", "BP_CD", "CURRENCY", "BILL_AMT", "COLLECT_AMT", "FORMAT(BILL_DT, 'yyyy-MM-ddTHH:mm:ss') BILL_DT", "FORMAT(INCOME_PLAN_DT, 'yyyy-MM-ddTHH:mm:ss') INCOME_PLAN_DT", "REMARK", "FORMAT(INVOICE_DT, 'yyyy-MM-ddTHH:mm:ss') INVOICE_DT", "BILL_NO", "CASE WHEN BILL_AMT <= COLLECT_AMT THEN 'Paid' ELSE 'Pending' END paymentStatus", "BILL_AMT - COLLECT_AMT AS unpaidAmount"};
 
     private final String SELECT_SOA_LIST =
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
