@@ -61,13 +61,18 @@ public class ACCOUNT {
     private String dealType;
 
     /**
+     * 1-11. SFDC Account Record ID
+     */
+    private String sfdcAccountId;
+
+    /**
      * 1-12. CUD 타입 (C, U, D)<br>
      *  - C: Insert, U: Update, D: Delete
      */
     private String cudType;
 
     /**
-     * 1-12. Record ID
+     * 1-13. Record ID
      */
     private int recordId;
 
@@ -84,6 +89,7 @@ public class ACCOUNT {
         this.currencyCode = a.get("CURRENCY").toString();
         this.paymentMethod = a.get("PAY_METH").toString();
         this.dealType = a.get("DEAL_TYPE").toString();
+        this.sfdcAccountId = a.get("SFDC_ACCOUNT_ID") == null ? null : a.get("SFDC_ACCOUNT_ID").toString();
         this.cudType = a.get("IF_ACT_CODE").toString();
         this.recordId = Integer.parseInt(a.get("IF_REC_ID").toString());
     }
