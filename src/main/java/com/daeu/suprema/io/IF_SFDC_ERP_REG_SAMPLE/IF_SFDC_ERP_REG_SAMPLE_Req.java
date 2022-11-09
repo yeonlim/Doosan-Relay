@@ -51,6 +51,19 @@ public class IF_SFDC_ERP_REG_SAMPLE_Req {
 		return mapList;
 	}
 
+	public Map<String, Object> getConfirmMap() {
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("orderId", this.orderId);
+		List<String> orderProductIdList = new ArrayList<>();
+		for(PRODUCT p : this.productList) {
+			orderProductIdList.add(p.getOrderProductId());
+		}
+		map.put("orderProductIdList", orderProductIdList);
+
+		return map;
+	}
+
     public void paramValidChk(IF_SFDC_ERP_REG_SAMPLE_Res objOutput) {
 		if(this.orderId == null 			|| this.orderId.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("orderId is Empty"); 			}
 		else if(this.startOrderDate == null || this.startOrderDate.isEmpty()) 	{ objOutput.setResultCode("1000"); objOutput.setResultMessage("startOrderDate is Empty"); 	}

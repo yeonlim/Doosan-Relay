@@ -1,6 +1,7 @@
 package com.daeu.suprema.repository;
 
 import com.daeu.suprema.io.IF_SFDC_ERP_REG_PO.IF_SFDC_ERP_REG_PO_Req;
+import com.daeu.suprema.io.IF_SFDC_ERP_REG_PO.IF_SFDC_ERP_REG_PO_Res;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class IF_SFDC_ERP_REG_PO_repo {
@@ -37,6 +40,7 @@ public class IF_SFDC_ERP_REG_PO_repo {
             ":payMethod, :transMethod, :carrier, :incoTerms, :dischgePortCode, :loadingPortCode, :countryCode, :accountManager, :originCode, " +
             ":productCode, :plantCode, :quantity, :unitPrice, :totalPrice, :discountAmt, :discountRate, :vatType, :vatAmt, :orderRemark, :remark)";
 
+    private final String CONFIRM_REG_PO_LIST = "SELECT IF_REC_ID, SFDC_OrderId, SFDC_OrderProductId FROM dbo.IF_SFDC_ERP_REG_PO WHERE SFDC_OrderId = :orderId AND SFDC_OrderProductId IN (:orderProductIdList)";
     @Transactional(readOnly = true)
     public boolean INSERT_PO_LIST(IF_SFDC_ERP_REG_PO_Req objInput) {
         logger.info("### Query : {}", INSERT_PO_LIST);
@@ -47,5 +51,25 @@ public class IF_SFDC_ERP_REG_PO_repo {
         logger.info("### Result : {}", result);
 
         return Arrays.asList(result).contains(0);
+    }
+
+    @Transactional(readOnly = true)
+    public IF_SFDC_ERP_REG_PO_Res CONFIRM_REG_PO_LIST(IF_SFDC_ERP_REG_PO_Req objInput) {
+        IF_SFDC_ERP_REG_PO_Res objOutput = new IF_SFDC_ERP_REG_PO_Res();
+
+        logger.info("### Query : {}", CONFIRM_REG_PO_LIST);
+        logger.info("### Data : {}", objInput.getConfirmMap().toString());
+
+        List<Map<String, Object>> result = primaryNamedJdbcTemplate.queryForList(CONFIRM_REG_PO_LIST, objInput.getConfirmMap());
+        logger.info("### Result : {}", result);
+
+        if(result == null || result.isEmpty()) {
+            objOutput = null;
+        } else {
+            objOutput.setResultCode("1003");
+            objOutput.setResultMessage("This is already registered order information.");
+        }
+
+        return objOutput;
     }
 }

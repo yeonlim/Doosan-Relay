@@ -16,12 +16,16 @@ public class IF_SFDC_ERP_REG_SAMPLE_biz extends WebCalloutUtil {
 
     @Async("threadPoolTaskExecutor")
     public IF_SFDC_ERP_REG_SAMPLE_Res execute(IF_SFDC_ERP_REG_SAMPLE_Req objInput) {
-        IF_SFDC_ERP_REG_SAMPLE_Res objOutput = new IF_SFDC_ERP_REG_SAMPLE_Res();
 
-        boolean flag = repository.INSERT_SAMPLE_ORDER_LIST(objInput);
+        // 기 등록된 수주 정보인지 Valid Check
+        IF_SFDC_ERP_REG_SAMPLE_Res objOutput = repository.CONFIRM_REG_SAMPLE_LIST(objInput);
 
-        objOutput.setResultCode(!flag ? "0000" : "9999");
-        objOutput.setResultMessage(!flag ? "SUCCESS" : "ERROR");
+        if(objOutput == null) {
+            boolean flag = repository.INSERT_SAMPLE_ORDER_LIST(objInput);
+
+            objOutput.setResultCode(!flag ? "0000" : "9999");
+            objOutput.setResultMessage(!flag ? "SUCCESS" : "ERROR");
+        }
 
         return objOutput;
     }

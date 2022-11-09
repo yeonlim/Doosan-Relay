@@ -161,6 +161,19 @@ public class IF_SFDC_ERP_REG_PO_Req {
 		return mapList;
     }
 
+	public Map<String, Object> getConfirmMap() {
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("orderId", this.orderId);
+		List<String> orderProductIdList = new ArrayList<>();
+		for(PRODUCT p : this.productList) {
+			orderProductIdList.add(p.getOrderProductId());
+		}
+		map.put("orderProductIdList", orderProductIdList);
+
+		return map;
+	}
+
 	/**
 	 * 필수 값 체크
 	 * @param objOutput
