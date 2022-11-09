@@ -1,4 +1,4 @@
-package com.daeu.suprema.web.test;
+package com.daeu.suprema.web;
 
 import com.daeu.suprema.util.WebCalloutUtil;
 import org.slf4j.Logger;

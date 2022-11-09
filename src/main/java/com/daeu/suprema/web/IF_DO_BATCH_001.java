@@ -1,4 +1,4 @@
-package com.daeu.suprema.web.test;
+package com.daeu.suprema.web;
 
 import com.daeu.suprema.io.test.IF_TEST_003.IF_TEST_003_Req;
 import com.daeu.suprema.io.test.IF_TEST_003.IF_TEST_003_Res;
