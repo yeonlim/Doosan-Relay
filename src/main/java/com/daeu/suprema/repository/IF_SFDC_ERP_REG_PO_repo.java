@@ -54,7 +54,7 @@ public class IF_SFDC_ERP_REG_PO_repo {
     }
 
     @Transactional(readOnly = true)
-    public IF_SFDC_ERP_REG_PO_Res CONFIRM_REG_PO_LIST(IF_SFDC_ERP_REG_PO_Req objInput) {
+    public boolean CONFIRM_REG_PO_LIST(IF_SFDC_ERP_REG_PO_Req objInput) {
         IF_SFDC_ERP_REG_PO_Res objOutput = new IF_SFDC_ERP_REG_PO_Res();
 
         logger.info("### Query : {}", CONFIRM_REG_PO_LIST);
@@ -63,13 +63,6 @@ public class IF_SFDC_ERP_REG_PO_repo {
         List<Map<String, Object>> result = primaryNamedJdbcTemplate.queryForList(CONFIRM_REG_PO_LIST, objInput.getConfirmMap());
         logger.info("### Result : {}", result);
 
-        if(result == null || result.isEmpty()) {
-            objOutput = null;
-        } else {
-            objOutput.setResultCode("1003");
-            objOutput.setResultMessage("This is already registered order information.");
-        }
-
-        return objOutput;
+        return result == null || result.isEmpty();
     }
 }

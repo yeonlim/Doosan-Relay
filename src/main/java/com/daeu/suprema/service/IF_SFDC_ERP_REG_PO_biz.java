@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class IF_SFDC_ERP_REG_PO_biz extends WebCalloutUtil {
 
@@ -15,17 +17,21 @@ public class IF_SFDC_ERP_REG_PO_biz extends WebCalloutUtil {
     private IF_SFDC_ERP_REG_PO_repo repository;
 
     @Async("threadPoolTaskExecutor")
-    public IF_SFDC_ERP_REG_PO_Res execute(IF_SFDC_ERP_REG_PO_Req objInput) throws Exception {
+    public IF_SFDC_ERP_REG_PO_Res execute(IF_SFDC_ERP_REG_PO_Req objInput) {
+        IF_SFDC_ERP_REG_PO_Res objOutput = new IF_SFDC_ERP_REG_PO_Res();
 
         // 기 등록된 수주 정보인지 Valid Check
-        IF_SFDC_ERP_REG_PO_Res objOutput = repository.CONFIRM_REG_PO_LIST(objInput);
-
-        if(objOutput == null) {
+        boolean registered = repository.CONFIRM_REG_PO_LIST(objInput);
+        if(registered) {
+            objOutput.setResultCode("1003");
+            objOutput.setResultMessage("This is already registered order information.");
+        } else {
             boolean flag = repository.INSERT_PO_LIST(objInput);
 
             objOutput.setResultCode(!flag ? "0000" : "9999");
             objOutput.setResultMessage(!flag ? "SUCCESS" : "ERROR");
         }
+        objOutput.setErrorList(new ArrayList<>());
 
         return objOutput;
     }

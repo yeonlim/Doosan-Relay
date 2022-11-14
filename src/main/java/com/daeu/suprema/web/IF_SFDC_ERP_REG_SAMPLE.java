@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 
 @RestController
 public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
@@ -30,7 +31,7 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
     @RequestMapping(value = "/V1/IF_SFDC_ERP_REG_SAMPLE", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public IF_SFDC_ERP_REG_SAMPLE_Res doPost(@RequestBody String fRequestBody, HttpServletRequest request, HttpServletResponse response) {
-        IF_SFDC_ERP_REG_SAMPLE_Req objInput = new IF_SFDC_ERP_REG_SAMPLE_Req();
+        IF_SFDC_ERP_REG_SAMPLE_Req objInput;
         IF_SFDC_ERP_REG_SAMPLE_Res objOutput = new IF_SFDC_ERP_REG_SAMPLE_Res();
 
         try {
@@ -50,9 +51,10 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
 
+            objOutput = new IF_SFDC_ERP_REG_SAMPLE_Res();
             objOutput.setResultCode("9999");
             objOutput.setResultMessage("Internal Server Error");
-
+            objOutput.setErrorList(new ArrayList<>());
             try {
                 sw.close();
             } catch (IOException e1) {

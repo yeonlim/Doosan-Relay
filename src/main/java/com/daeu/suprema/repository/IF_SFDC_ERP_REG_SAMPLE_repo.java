@@ -53,7 +53,7 @@ public class IF_SFDC_ERP_REG_SAMPLE_repo {
     }
 
     @Transactional(readOnly = true)
-    public IF_SFDC_ERP_REG_SAMPLE_Res CONFIRM_REG_SAMPLE_LIST(IF_SFDC_ERP_REG_SAMPLE_Req objInput) {
+    public boolean CONFIRM_REG_SAMPLE_LIST(IF_SFDC_ERP_REG_SAMPLE_Req objInput) {
         IF_SFDC_ERP_REG_SAMPLE_Res objOutput = new IF_SFDC_ERP_REG_SAMPLE_Res();
 
         logger.info("### Query : {}", CONFIRM_REG_SAMPLE_LIST);
@@ -62,13 +62,6 @@ public class IF_SFDC_ERP_REG_SAMPLE_repo {
         List<Map<String, Object>> result = primaryNamedJdbcTemplate.queryForList(CONFIRM_REG_SAMPLE_LIST, objInput.getConfirmMap());
         logger.info("### Result : {}", result);
 
-        if(result == null || result.isEmpty()) {
-            objOutput = null;
-        } else {
-            objOutput.setResultCode("1003");
-            objOutput.setResultMessage("This is already registered order information.");
-        }
-
-        return objOutput;
+        return result == null || result.isEmpty();
     }
 }
