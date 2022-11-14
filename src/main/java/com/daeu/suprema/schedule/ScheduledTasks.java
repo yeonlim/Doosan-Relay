@@ -22,9 +22,6 @@ public class ScheduledTasks extends WebCalloutUtil {
 	@Value("${INTERFACE.SCHEDULE.ENABLE}")
 	private boolean scheduleEnable;
 
-	@Value("${SFDC.IF.TEST}")
-	private String SFDC_IF_TEST;
-
 	@Autowired
 	private IF_ERP_SFDC_REG_ACCOUNT_biz IF_ERP_SFDC_REG_ACCOUNT_biz;				// 거래처 정보
 
@@ -49,18 +46,6 @@ public class ScheduledTasks extends WebCalloutUtil {
 	@Autowired
 	private IF_ERP_SFDC_REG_PACKING_LIST_biz IF_ERP_SFDC_REG_PACKING_LIST_biz;		// Packing List 정보
 
-	public void TEST_BATCH() {
-		if(!scheduleEnable) return;
-
-		Map<String, Object> reqMap = new HashMap<String, Object>() {{
-			put("requestId", "requestId");
-			put("data", "data");
-		}};
-
-		logger.info("SFDC_IF_TEST : {}", SFDC_IF_TEST);
-		httpRequestUtil.doPost(SFDC_IF_TEST, reqMap);
-	}
-
 	/**
 	 *	거래처 정보 관리 Batch
 	 */
@@ -68,6 +53,7 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_ACCOUNT_biz.execute();
+		IF_ERP_SFDC_REG_SHIPTO_biz.execute();
 	}
 
 	/**
@@ -95,15 +81,6 @@ public class ScheduledTasks extends WebCalloutUtil {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz.execute();
-	}
-
-	/**
-	 *	납품처 정보 관리 Batch
-	 */
-	public void IF_ERP_SFDC_REG_SHIPTO_BATCH() {
-		if(!scheduleEnable) return;
-
-		IF_ERP_SFDC_REG_SHIPTO_biz.execute();
 	}
 
 	/**
