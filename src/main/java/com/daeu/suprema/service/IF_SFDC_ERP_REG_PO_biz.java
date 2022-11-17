@@ -22,7 +22,7 @@ public class IF_SFDC_ERP_REG_PO_biz extends WebCalloutUtil {
 
         // 기 등록된 수주 정보인지 Valid Check
         boolean registered = repository.CONFIRM_REG_PO_LIST(objInput);
-        if(registered) {
+        if(!registered) {
             objOutput.setResultCode("1003");
             objOutput.setResultMessage("This is already registered order information.");
         } else {

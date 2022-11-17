@@ -40,7 +40,7 @@ public class PRODUCT {
     /**
      *  1-7. Forcast 표시 여부
      */
-    private boolean forcastTarget;
+    private boolean forecastTarget;
 
     /**
      *  1-8. Country of Origin
@@ -72,7 +72,7 @@ public class PRODUCT {
         this.netWeight = p.get("UNIT_WEIGHT") == null ? 0 : Double.parseDouble(p.get("UNIT_WEIGHT").toString());
         this.hsCode = p.get("HSCode_c") == null ? null : p.get("HSCode_c").toString();
         this.spec = p.get("SPEC") == null ? null : p.get("SPEC").toString();
-        this.forcastTarget = p.get("forcastTarget") == null ? false : Boolean.parseBoolean(p.get("forcastTarget").toString());
+        this.forecastTarget = p.get("forecastTarget") == null ? false : Boolean.parseBoolean(p.get("forecastTarget").toString());
         this.countryOfOrigin = p.get("CountryofOrigin") == null ? null : p.get("CountryofOrigin").toString();
         this.useYn = Boolean.parseBoolean(p.get("useYn").toString());
         this.cudType = p.get("IF_ACT_CODE").toString();

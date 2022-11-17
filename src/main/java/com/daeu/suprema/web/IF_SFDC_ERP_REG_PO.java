@@ -53,7 +53,7 @@ public class IF_SFDC_ERP_REG_PO extends WebCalloutUtil {
 
             objOutput = new IF_SFDC_ERP_REG_PO_Res();
             objOutput.setResultCode("9999");
-            objOutput.setResultMessage("Internal Server Error");
+            objOutput.setResultMessage(String.format("Internal Server Error - %s", e.getMessage()));
             objOutput.setErrorList(new ArrayList<>());
             try {
                 sw.close();

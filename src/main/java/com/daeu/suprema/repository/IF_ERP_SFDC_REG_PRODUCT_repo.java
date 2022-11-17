@@ -30,7 +30,7 @@ public class IF_ERP_SFDC_REG_PRODUCT_repo {
     private NamedParameterJdbcTemplate primaryNamedJdbcTemplate;
 
     private final String[] COMMON_FIELDS = {"IF_REC_ID", "IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS", "IF_ERR_MSG"};
-    private final String[] IF_FIELDS = {"S_ITEM_CD", "S_ITEM_NM", "ITEM_GROUP_CD", "SPEC", "UNIT_WEIGHT", "HSCode_c", "IIF(ForecastTarget = 'Y', 'True', 'False') AS forcastTarget", "CountryofOrigin", "IIF(USE_YN = 'Y', 'True', 'False') AS useYn"};
+    private final String[] IF_FIELDS = {"S_ITEM_CD", "S_ITEM_NM", "ITEM_GROUP_CD", "SPEC", "UNIT_WEIGHT", "HSCode_c", "IIF(ForecastTarget = 'Y', 'True', 'False') AS forecastTarget", "CountryofOrigin", "IIF(USE_YN = 'Y', 'True', 'False') AS useYn"};
 
     private final String SELECT_PRODUCT_LIST =
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +

@@ -97,13 +97,13 @@ public class FtpUtil {
 		return flag;
 	}
 	
-//	public void cd(String path) {
-//		try {
-//			ftp.changeWorkingDirectory(path);
-//		} catch (IOException ioe) {
-//			ioe.printStackTrace();
-//		}
-//	}
+	public void cd(String path) {
+		try {
+			ftp.changeWorkingDirectory(path);
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 	
 	public void disconnect() throws Exception {
 		this.logout();
@@ -113,7 +113,6 @@ public class FtpUtil {
 	
 	public boolean isConnected() throws Exception {
 		boolean flag = false;
-		
 		flag = ftp.isConnected();
 		
 		return flag;

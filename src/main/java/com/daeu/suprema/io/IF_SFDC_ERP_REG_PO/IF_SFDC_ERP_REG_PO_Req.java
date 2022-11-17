@@ -186,7 +186,6 @@ public class IF_SFDC_ERP_REG_PO_Req {
 		else if(this.shipToParty == null 	|| this.shipToParty.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("shipToParty is Empty"); 		}
 		else if(this.dealType == null 		|| this.dealType.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("dealType is Empty"); 		}
 		else if(this.payMethod == null 		|| this.payMethod.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("payMethod is Empty"); 		}
-		else if(this.transMethod == null 	|| this.transMethod.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("transMethod is Empty"); 		}
 		else if(this.plantCode == null 		|| this.plantCode.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("plantCode is Empty"); 		}
 		else if(this.vatType == null		|| this.vatType.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("vatType is Empty"); 			}
 		else if(this.productList == null 	|| this.productList.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("productList is Empty"); 		}
