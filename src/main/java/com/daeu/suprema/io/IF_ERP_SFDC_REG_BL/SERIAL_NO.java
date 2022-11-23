@@ -27,13 +27,18 @@ public class SERIAL_NO {
     private double quantity;
 
     /**
-     *  1-10-5. CUD 타입 (C, U, D)<br>
+     *  1-10-5. 펌웨어 버전
+     */
+    private String firmwareVersion;
+
+    /**
+     *  1-10-6. CUD 타입 (C, U, D)<br>
      *  - C: Insert, U: Update, D: Delete
      */
     private String cudType;
 
     /**
-     *  1-10-6. Record ID
+     *  1-10-7. Record ID
      */
     private int recordId;
 
@@ -41,9 +46,10 @@ public class SERIAL_NO {
 
     public SERIAL_NO(Map<String, Object> s) {
         this.productCode = s.get("S_ITEM_CD").toString();
-        this.serialNo = s.get("SERIAL_NO").toString();
+        this.serialNo = s.get("SERIAL_NO") == null ? "" : s.get("SERIAL_NO").toString();
         this.releaseDate = s.get("ACTUAL_GI_DT").toString();
         this.quantity = Double.parseDouble(s.get("GI_QTY").toString());
+        this.firmwareVersion = s.get("FIRMWARE_VERSION") == null ? "" : s.get("FIRMWARE_VERSION").toString();
         this.cudType = s.get("IF_ACT_CODE").toString();
         this.recordId = Integer.parseInt(s.get("IF_REC_ID").toString());
     }
