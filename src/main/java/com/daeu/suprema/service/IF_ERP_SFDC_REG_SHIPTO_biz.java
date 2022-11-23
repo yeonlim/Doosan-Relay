@@ -83,16 +83,19 @@ public class IF_ERP_SFDC_REG_SHIPTO_biz extends WebCalloutUtil {
         }
 
         // ACCOUNT >> SHIP_TO
+        // 1. [IF_ERP_SFDC_INFO_SHIPTO] 테이블에 해당하는 Record가 없는 SHIP_TO(Account) Error 처리
+        repository.UPDATE_NON_APPLICABLE_SHIPTO_LIST();
+
         prcCnt = 0;
         while (true) {
-            // 1. 납품처 정보 조회
+            // 2. 납품처 정보 조회
             List<Map<String, Object>> accountListMap = repository.SELECT_ACCOUNT_LIST(prcCnt);
             if(accountListMap == null || accountListMap.isEmpty()) {
                 logger.info("Terminate the batch as there are no Rows to be interfaced.");
                 break;
             }
 
-            // 2. API 요청 규격으로 Convert
+            // 3. API 요청 규격으로 Convert
             List<SHIP_TO> accountList = new ArrayList<>();
             List<Integer> ifRecIdList = new ArrayList<>();
             for(Map<String, Object> s : accountListMap) {
@@ -103,13 +106,13 @@ public class IF_ERP_SFDC_REG_SHIPTO_biz extends WebCalloutUtil {
             IF_ERP_SFDC_REG_SHIPTO_Req objReq = new IF_ERP_SFDC_REG_SHIPTO_Req();
             objReq.setShipToList(accountList);
 
-            // 3. 요청
+            // 4. 요청
             String responseStr = httpRequestUtil.doPost(IF_ERP_SFDC_REG_SHIPTO, objReq);
             logger.info("response : {}", responseStr);
 
             IF_ERP_SFDC_REG_SHIPTO_Res objRes = gson.fromJson(responseStr, IF_ERP_SFDC_REG_SHIPTO_Res.class);
 
-            // 4. 정상 응답 시, I/F Status 변경 (R -> P)
+            // 5. 정상 응답 시, I/F Status 변경 (R -> P)
             if(objRes.getErrorList() != null && objRes.getErrorList().size() > 0) {
                 for(Error error : objRes.getErrorList()) {
                     ifRecIdList.remove(new Integer(error.getRecordId()));
