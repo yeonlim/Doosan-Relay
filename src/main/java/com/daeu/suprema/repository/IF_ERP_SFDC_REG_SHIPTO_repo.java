@@ -76,6 +76,13 @@ public class IF_ERP_SFDC_REG_SHIPTO_repo {
             "UPDATE dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
                     " SET IF_STATUS = 'E', IF_PRC_DT = GETDATE(), IF_ERR_MSG = CONCAT('[', :errorCode, '] ', :errorMessage)" +
                     " WHERE IF_REC_ID = :recordId";
+
+    private final String UPDATE_NON_APPLICABLE_SHIPTO_LIST =
+            "UPDATE dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
+                    " SET IF_STATUS = 'E', IF_PRC_DT = GETDATE(), IF_ERR_MSG = '[1003] Applicable record information does not exist in table \"IF_ERP_SFDC_INFO_SHIPTO\".'" +
+                    " WHERE IF_STATUS = 'R' AND BOOS_ORDER_YN = 'N'" +
+                    " AND NOT EXISTS (SELECT IF_REC_ID FROM dbo.IF_ERP_SFDC_INFO_SHIPTO IESIS WHERE IESIS.PARTNER_BP_CD = BP_CD)";
+
     @Transactional(readOnly = true)
     public List<Map<String, Object>> SELECT_SHIPTO_LIST(int prcCnt) {
         logger.info("### Query #{} : {}", prcCnt, SELECT_SHIPTO_LIST);
@@ -140,5 +147,14 @@ public class IF_ERP_SFDC_REG_SHIPTO_repo {
         logger.info("### Result #{} : {}", prcCnt, result);
 
         return Arrays.asList(result).contains(0);
+    }
+
+    public int UPDATE_NON_APPLICABLE_SHIPTO_LIST() {
+        logger.info("### Query : {}", UPDATE_NON_APPLICABLE_SHIPTO_LIST);
+
+        int result = jdbcTemplate.update(UPDATE_NON_APPLICABLE_SHIPTO_LIST);
+        logger.info("### Result : {}", result);
+
+        return result;
     }
 }
