@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/task
+                           http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+    <task:scheduled-tasks scheduler="batchScheduler">
+    	<!-- 초 분 시 일 월 요일 연도(생략가능) -->
+        <!-- <task:scheduled ref="ScheduledTasks" method="fixedDelay" fixed-delay="5000" /> -->
+        <!-- <task:scheduled ref="ScheduledTasks" method="ftpInterface" cron="0 0 23 * * MON-FRI" /> -->
+
+        <task:scheduled ref="ScheduledTasks" method="IF_ERP_SFDC_REG_ACCOUNT_BATCH"         cron="${IF.ERP.SFDC.REG.ACCOUNT.CRON}" />
+        <task:scheduled ref="ScheduledTasks" method="IF_ERP_SFDC_REG_PRODUCT_BATCH"         cron="${IF.ERP.SFDC.REG.PRODUCT.BATCH.CRON}" />
+        <task:scheduled ref="ScheduledTasks" method="IF_ERP_SFDC_REG_PRICEBOOK_ACC_BATCH"   cron="${IF.ERP.SFDC.REG.PRICEBOOK.ACC.BATCH.CRON}" />
+        <task:scheduled ref="ScheduledTasks" method="IF_ERP_SFDC_REG_PRICEBOOK_QTY_BATCH"   cron="${IF.ERP.SFDC.REG.PRICEBOOK.QTY.BATCH.CRON}" />
+        <task:scheduled ref="ScheduledTasks" method="IF_ERP_SFDC_REG_SOA_BATCH"             cron="${IF.ERP.SFDC.REG.SOA.BATCH.CRON}" />
+        <task:scheduled ref="ScheduledTasks" method="IF_ERP_SFDC_REG_BL_BATCH"              cron="${IF.ERP.SFDC.REG.BL.BATCH.CRON}" />
+        <task:scheduled ref="ScheduledTasks" method="IF_ERP_SFDC_REG_PACKING_LIST_BATCH"    cron="${IF.ERP.SFDC.REG.PACKING.LIST.BATCH.CRON}" />
+    </task:scheduled-tasks>
+
+    <task:scheduler id="batchScheduler"/>
+</beans>
