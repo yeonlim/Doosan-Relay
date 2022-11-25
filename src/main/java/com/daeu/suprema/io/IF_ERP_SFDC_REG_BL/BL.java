@@ -68,8 +68,8 @@ public class BL {
         boolean flag = "D".equals(b.get("IF_ACT_CODE").toString());
 
         this.orderId = b.get("SFDC_ORDERID").toString();
-        this.orderHsCode = flag ? null : b.get("HS_CD_H").toString();
-        this.blNum = flag ? null : b.get("BL_DOC_NO").toString();
+        this.orderHsCode = flag || b.get("HS_CD_H") == null ? null : b.get("HS_CD_H").toString();
+        this.blNum = flag || b.get("BL_DOC_NO") == null ? null : b.get("BL_DOC_NO").toString();
         this.releaseRequestDate = flag ? null : b.get("INV_DT").toString();
         this.releaseExpectedDate = flag ? null : b.get("PROMISE_DT").toString();
         this.lcNo = flag || b.get("LC_NO") == null ? null : b.get("LC_NO").toString();
