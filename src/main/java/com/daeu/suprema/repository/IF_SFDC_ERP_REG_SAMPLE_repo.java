@@ -33,10 +33,10 @@ public class IF_SFDC_ERP_REG_SAMPLE_repo {
     private NamedParameterJdbcTemplate primaryNamedJdbcTemplate;
 
     private final String[] COMMON_FIELDS = {"IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS"};
-    private final String[] IF_FIELDS = {"SFDC_OrderId", "SFDC_OrderProductId", "REQ_DT", "S_ITEM_CD", "REQ_QTY", "REMARK"};
+    private final String[] IF_FIELDS = {"SFDC_OrderId", "SFDC_OrderProductId", "REQ_DT", "S_ITEM_CD", "REQ_QTY", "REMARK", "SOLD_TO_PARTY", "ORDER_NUMBER"};
 
     private final String INSERT_SAMPLE_ORDER_LIST = "INSERT INTO IF_SFDC_ERP_ETC_ISSUE(" + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) + ")" +
-            " VALUES('C', GETDATE(), 'R', :orderId, :orderProductId, CONVERT(DATE, :startOrderDate), :productCode, :quantity, :remark)";
+            " VALUES('C', GETDATE(), 'R', :orderId, :orderProductId, CONVERT(DATE, :startOrderDate), :productCode, :quantity, :remark, :soldToParty, :orderNumber)";
 
     private final String CONFIRM_REG_SAMPLE_LIST = "SELECT IF_REC_ID, SFDC_OrderId, SFDC_OrderProductId FROM dbo.IF_SFDC_ERP_ETC_ISSUE WHERE SFDC_OrderId = :orderId AND SFDC_OrderProductId IN (:orderProductIdList)";
 

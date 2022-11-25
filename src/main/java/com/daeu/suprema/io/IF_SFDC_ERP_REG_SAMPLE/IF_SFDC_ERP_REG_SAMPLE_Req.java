@@ -27,26 +27,36 @@ public class IF_SFDC_ERP_REG_SAMPLE_Req {
 	private String remark;
 
 	/**
-	 * 	4. 수주 품목정보 List
+	 * 	4. 주문처 거래처코드
+	 */
+	private String soldToParty;
+
+	/**
+	 * 	5. SFDC Order 번호
+	 */
+	private String orderNumber;
+
+	/**
+	 * 	6. 수주 품목정보 List
 	 */
 	private List<PRODUCT> productList;
 
 	public List<Map<String, Object>> getMapList() {
 		List<Map<String, Object>> mapList = new ArrayList<>();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 		for(PRODUCT p : productList) {
 			Map<String, Object> product = new HashMap<>();
 			product.put("orderId"			, this.orderId);
 			product.put("startOrderDate"	, this.startOrderDate);
 			product.put("remark"			, this.remark);
+			product.put("soldToParty"		, this.soldToParty);
+			product.put("orderNumber"		, this.orderNumber);
 			product.put("orderProductId"	, p.getOrderProductId());
 			product.put("productCode"		, p.getProductCode());
 			product.put("quantity"			, p.getQuantity());
 
 			mapList.add(product);
 		}
-
 
 		return mapList;
 	}
@@ -67,6 +77,8 @@ public class IF_SFDC_ERP_REG_SAMPLE_Req {
     public void paramValidChk(IF_SFDC_ERP_REG_SAMPLE_Res objOutput) {
 		if(this.orderId == null 			|| this.orderId.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("orderId is Empty"); 			}
 		else if(this.startOrderDate == null || this.startOrderDate.isEmpty()) 	{ objOutput.setResultCode("1000"); objOutput.setResultMessage("startOrderDate is Empty"); 	}
+		else if(this.soldToParty == null 	|| this.soldToParty.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("soldToParty is Empty"); 		}
+		else if(this.orderNumber == null 	|| this.orderNumber.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("orderNumber is Empty"); 		}
 		else if(this.productList == null 	|| this.productList.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("productList is Empty"); 		}
 
 		if(!"1000".equals(objOutput.getResultCode())) {
