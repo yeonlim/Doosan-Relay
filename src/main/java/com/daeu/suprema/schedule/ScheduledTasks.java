@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Component("ScheduledTasks")
 public class ScheduledTasks extends WebCalloutUtil {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,66 +44,18 @@ public class ScheduledTasks extends WebCalloutUtil {
 	private IF_ERP_SFDC_REG_PACKING_LIST_biz IF_ERP_SFDC_REG_PACKING_LIST_biz;		// Packing List 정보
 
 	/**
-	 *	거래처 정보 관리 Batch
+	 *	Batch
 	 */
-	public void IF_ERP_SFDC_REG_ACCOUNT_BATCH() {
+	public void IF_ERP_SFDC_REG_BATCH() {
 		if(!scheduleEnable) return;
 
 		IF_ERP_SFDC_REG_ACCOUNT_biz.execute();
 		IF_ERP_SFDC_REG_SHIPTO_biz.execute();
-	}
-
-	/**
-	 *	품목 정보 관리 Batch
-	 */
-	public void IF_ERP_SFDC_REG_PRODUCT_BATCH() {
-		if(!scheduleEnable) return;
-
 		IF_ERP_SFDC_REG_PRODUCT_biz.execute();
-	}
-
-	/**
-	 *	고객별 할인율 정보 관리 Batch
-	 */
-	public void IF_ERP_SFDC_REG_PRICEBOOK_ACC_BATCH() {
-		if(!scheduleEnable) return;
-
 		IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz.execute();
-	}
-
-	/**
-	 *	수량별 단가 정보 관리 Batch
-	 */
-	public void IF_ERP_SFDC_REG_PRICEBOOK_QTY_BATCH() {
-		if(!scheduleEnable) return;
-
 		IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz.execute();
-	}
-
-	/**
-	 *	매출채권 정보 관리 Batch
-	 */
-	public void IF_ERP_SFDC_REG_SOA_BATCH() {
-		if(!scheduleEnable) return;
-
 		IF_ERP_SFDC_REG_SOA_biz.execute();
-	}
-
-	/**
-	 *	BL 정보 관리 Batch
-	 */
-	public void IF_ERP_SFDC_REG_BL_BATCH() {
-		if(!scheduleEnable) return;
-
 		IF_ERP_SFDC_REG_BL_biz.execute();
-	}
-
-	/**
-	 *	Packing List 정보 관리 Batch
-	 */
-	public void IF_ERP_SFDC_REG_PACKING_LIST_BATCH() {
-		if(!scheduleEnable) return;
-
 		IF_ERP_SFDC_REG_PACKING_LIST_biz.execute();
 	}
 }

@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class IF_DO_BATCH_001 extends WebCalloutUtil {
+public class IF_DO_BATCH extends WebCalloutUtil {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -46,7 +46,7 @@ public class IF_DO_BATCH_001 extends WebCalloutUtil {
     @Autowired
     private IF_ERP_SFDC_REG_PACKING_LIST_biz IF_ERP_SFDC_REG_PACKING_LIST_biz;		// Packing List 정보
 
-    @RequestMapping(value = "/V1/IF_DO_BATCH_001", method = RequestMethod.POST)
+    @RequestMapping(value = "/V1/IF_DO_BATCH", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public Map<String, Object> doPost(@RequestBody String fRequestBody, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
     	Map<String, Object> objInput = new HashMap<>();
@@ -62,29 +62,37 @@ public class IF_DO_BATCH_001 extends WebCalloutUtil {
         logger.info("apiName : {}", apiName);
 
         switch (apiName) {
-            case "ACCOUNT" :
+            case "IF_ERP_SFDC_REG_ACCOUNT" : case "IF_ERP_SFDC_REG_SHIPTO" :
                 IF_ERP_SFDC_REG_ACCOUNT_biz.execute();
+                IF_ERP_SFDC_REG_SHIPTO_biz.execute();
                 break;
-            case "PRODUCT" :
+            case "IF_ERP_SFDC_REG_PRODUCT" :
                 IF_ERP_SFDC_REG_PRODUCT_biz.execute();
                 break;
-            case "PRICEBOOKACC" :
+            case "IF_ERP_SFDC_REG_PRICEBOOK_ACC" :
                 IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz.execute();
                 break;
-            case "PRICEBOOKQTY" :
+            case "IF_ERP_SFDC_REG_PRICEBOOK_QTY" :
                 IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz.execute();
                 break;
-            case "SOA" :
+            case "IF_ERP_SFDC_REG_SOA" :
                 IF_ERP_SFDC_REG_SOA_biz.execute();
                 break;
-            case "BL" :
+            case "IF_ERP_SFDC_REG_BL" :
                 IF_ERP_SFDC_REG_BL_biz.execute();
                 break;
-            case "PACKINGLIST" :
+            case "IF_ERP_SFDC_REG_PACKING_LIST" :
                 IF_ERP_SFDC_REG_PACKING_LIST_biz.execute();
                 break;
-            case "SHIPTO" :
+            case "IF_DO_BATCH" :
+                IF_ERP_SFDC_REG_ACCOUNT_biz.execute();
                 IF_ERP_SFDC_REG_SHIPTO_biz.execute();
+                IF_ERP_SFDC_REG_PRODUCT_biz.execute();
+                IF_ERP_SFDC_REG_PRICEBOOK_ACC_biz.execute();
+                IF_ERP_SFDC_REG_PRICEBOOK_QTY_biz.execute();
+                IF_ERP_SFDC_REG_SOA_biz.execute();
+                IF_ERP_SFDC_REG_BL_biz.execute();
+                IF_ERP_SFDC_REG_PACKING_LIST_biz.execute();
                 break;
             default:
         }
