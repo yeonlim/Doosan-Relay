@@ -33,7 +33,7 @@ public class SfdcJwtUtil {
         try {
             // Url
             URI uri = UriComponentsBuilder
-                    .fromUriString("prod".equals(profile) ? "https://login.salesforce.com" : "https://test.salesforce.com") // 호출 도메인 설정
+                    .fromUriString("PROD".equals(profile) ? "https://login.salesforce.com" : "https://test.salesforce.com") // 호출 도메인 설정
                     .path("/services/oauth2/token") // URL Path 설정
                     .encode()
                     .build()
@@ -49,6 +49,21 @@ public class SfdcJwtUtil {
 
             if("DEV".equals(serverType)) {
                 claimArray[0] = "interface@suprema.co.kr.supremadev";   // username (Interface용 계정정보)
+                claimArray[1] = "daeu2022!!";                           // password (Interface용 계정정보)
+                claimArray[2] = "3MVG9rnryk9FxFMVvmL8T77RuUnKcePVzU7UrW2PfrDv9yf7CBIfiqSt2KXqKp8yDKohD_FjC90qgQe3e7RvZ"; // Oauth App > Consumer Key
+                claimArray[3] = "8A40471A831D0D0D1D8F69EB87CBA96AD883C6C95DC17AF6C511789B67591FF4";                      // Oauth App > Consumer Secret
+            } else if("PARTIAL".equals(serverType)) {
+                claimArray[0] = "interface@suprema.co.kr.ps";           // username (Interface용 계정정보)
+                claimArray[1] = "daeu2022!!";                           // password (Interface용 계정정보)
+                claimArray[2] = "3MVG9Po2PmyYruukUgouKjEAFdiCvge1FcLfq6yjr2m_MaKnrvjL3dcXbLzPSGl13KYNvfutGiWdKPAgMRm9u"; // Oauth App > Consumer Key
+                claimArray[3] = "23265584F8C34A602A84168ED9ADFA86DA3E2AF42405B653C7D9C66828F0C394";                      // Oauth App > Consumer Secret
+            } else if("FSB".equals(serverType)) {
+                claimArray[0] = "interface@suprema.co.kr.fsb";          // username (Interface용 계정정보)
+                claimArray[1] = "daeu2022!!";                           // password (Interface용 계정정보)
+                claimArray[2] = "3MVG9Po2PmyYruun6G1tJUk56uDn5Qn8.rQBWOnqI3RMW2EgUdgKWm.EbNhhjVqYH1x9kTns9Xab58lR07IDj"; // Oauth App > Consumer Key
+                claimArray[3] = "38AC3D3C18D83BF9D295E60B2C354B9E99A4006F0E757736989AEA8E538996E1";                      // Oauth App > Consumer Secret
+            } else if("PROD".equals(serverType)) {
+                claimArray[0] = "interface@suprema.co.kr.pd";           // username (Interface용 계정정보)
                 claimArray[1] = "daeu2022!!";                           // password (Interface용 계정정보)
                 claimArray[2] = "3MVG9rnryk9FxFMVvmL8T77RuUnKcePVzU7UrW2PfrDv9yf7CBIfiqSt2KXqKp8yDKohD_FjC90qgQe3e7RvZ"; // Oauth App > Consumer Key
                 claimArray[3] = "8A40471A831D0D0D1D8F69EB87CBA96AD883C6C95DC17AF6C511789B67591FF4";                      // Oauth App > Consumer Secret
