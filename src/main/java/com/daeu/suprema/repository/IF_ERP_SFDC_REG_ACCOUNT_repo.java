@@ -32,13 +32,11 @@ public class IF_ERP_SFDC_REG_ACCOUNT_repo {
     private final String[] COMMON_FIELDS = {"IF_REC_ID", "IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS", "IF_ERR_MSG"};
     private final String[] IF_FIELDS = {"BP_CD", "BP_RGST_NO", "BP_FULL_NM", "ADDR_ENG", "TEL_NO1", "CONTRY_CD", "BP_PRSN_NM", "CURRENCY", "PAY_METH", "DEAL_TYPE", "BOOS_ORDER_YN", "SFDC_ACCOUNT_ID"};
 
-
     private final String SELECT_ACCOUNT_LIST =
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
                     " FROM dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
-                    " WHERE IF_STATUS = 'R' AND BOOS_ORDER_YN = 'Y'" +
+                    " WHERE IF_STATUS = 'R'" +
                     " ORDER BY IF_REC_ID ASC";
-
 
     private final String UPDATE_ACCOUNT_LIST =
             "UPDATE dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
