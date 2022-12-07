@@ -112,12 +112,17 @@ public class IF_SFDC_ERP_REG_PO_Req {
 	private double vatAmt;
 
 	/**
-	 * 	19. 주문 비고
+	 * 	19. SFDC Order 번호
+	 */
+	private String orderNumber;
+
+	/**
+	 * 	20. 주문 비고
 	 */
 	private String orderRemark;
 
 	/**
-	 * 	20. 수주 품목정보 List
+	 * 	21. 수주 품목정보 List
 	 */
 	private List<PRODUCT> productList;
 
@@ -145,6 +150,7 @@ public class IF_SFDC_ERP_REG_PO_Req {
 			product.put("vatType"			, this.vatType);
 			product.put("vatAmt"			, this.vatAmt);
 			product.put("orderRemark"		, this.orderRemark);
+			product.put("orderNumber"		, this.orderNumber);
 			product.put("orderProductId"	, p.getOrderProductId());
 			product.put("productCode"		, p.getProductCode());
 			product.put("originCode"		, p.getOriginCode());
@@ -188,6 +194,7 @@ public class IF_SFDC_ERP_REG_PO_Req {
 		else if(this.payMethod == null 		|| this.payMethod.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("payMethod is Empty"); 		}
 		else if(this.plantCode == null 		|| this.plantCode.isEmpty()) 		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("plantCode is Empty"); 		}
 		else if(this.vatType == null		|| this.vatType.isEmpty()) 			{ objOutput.setResultCode("1000"); objOutput.setResultMessage("vatType is Empty"); 			}
+		else if(this.orderNumber == null 	|| this.orderNumber.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("orderNumber is Empty"); 		}
 		else if(this.productList == null 	|| this.productList.isEmpty())		{ objOutput.setResultCode("1000"); objOutput.setResultMessage("productList is Empty"); 		}
 
 		if(!"1000".equals(objOutput.getResultCode())) {

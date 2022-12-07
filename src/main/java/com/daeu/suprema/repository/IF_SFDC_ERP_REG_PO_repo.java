@@ -33,12 +33,12 @@ public class IF_SFDC_ERP_REG_PO_repo {
     private final String[] COMMON_FIELDS = {"IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS"};
     private final String[] IF_FIELDS = {"SFDC_OrderId", "SFDC_OrderProductId", "SO_DT", "CUST_PO_NO", "CUR", "SOLD_TO_PARTY", "SHIP_TO_PARTY", "DEAL_TYPE",
             "PAY_METH", "TRANS_METH", "CARRIER_KO799", "INCOTERMS", "DISCHGE_PORT_CD", "LOADING_PORT_CD", "COUNTRY_CD_KO799", "BP_PRSN_NM_KO799", "ORIGIN_CD",
-            "S_ITEM_CD", "PLANT_CD", "SO_QTY", "SO_PRICE", "NET_AMT", "DC_AMT", "DC_RATE_PRC", "VAT_TYPE", "VAT_AMT", "REMARK", "ITEM_ETC"};
+            "S_ITEM_CD", "PLANT_CD", "SO_QTY", "SO_PRICE", "NET_AMT", "DC_AMT", "DC_RATE_PRC", "VAT_TYPE", "VAT_AMT", "REMARK", "ITEM_ETC", "ORDER_NUMBER"};
 
     private final String INSERT_PO_LIST = "INSERT INTO IF_SFDC_ERP_REG_PO(" + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) + ")" +
             " VALUES('C', GETDATE(), 'R', :orderId, :orderProductId, CONVERT(DATE, :startOrderDate), :custPoNo, :curCode, :soldToParty, :shipToParty, :dealType, " +
             ":payMethod, :transMethod, :carrier, :incoTerms, :dischgePortCode, :loadingPortCode, :countryCode, :accountManager, :originCode, " +
-            ":productCode, :plantCode, :quantity, :unitPrice, :totalPrice, :discountAmt, :discountRate, :vatType, :vatAmt, :orderRemark, :remark)";
+            ":productCode, :plantCode, :quantity, :unitPrice, :totalPrice, :discountAmt, :discountRate, :vatType, :vatAmt, :orderRemark, :remark, :orderNumber)";
 
     private final String CONFIRM_REG_PO_LIST = "SELECT IF_REC_ID, SFDC_OrderId, SFDC_OrderProductId FROM dbo.IF_SFDC_ERP_REG_PO WHERE SFDC_OrderId = :orderId AND SFDC_OrderProductId IN (:orderProductIdList)";
     @Transactional(readOnly = true)
