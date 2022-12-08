@@ -31,7 +31,7 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
     @RequestMapping(value = "/V1/IF_SFDC_ERP_REG_SAMPLE", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public IF_SFDC_ERP_REG_SAMPLE_Res doPost(@RequestBody String fRequestBody, HttpServletRequest request, HttpServletResponse response) {
-        IF_SFDC_ERP_REG_SAMPLE_Req objInput;
+        IF_SFDC_ERP_REG_SAMPLE_Req objInput = new IF_SFDC_ERP_REG_SAMPLE_Req();
         IF_SFDC_ERP_REG_SAMPLE_Res objOutput = new IF_SFDC_ERP_REG_SAMPLE_Res();
 
         try {
@@ -54,7 +54,7 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
             objOutput = new IF_SFDC_ERP_REG_SAMPLE_Res();
             objOutput.setResultCode("9999");
             objOutput.setResultMessage(String.format("Internal Server Error - %s", e.getMessage()));
-            objOutput.setErrorList(new ArrayList<>());
+            
             try {
                 sw.close();
             } catch (IOException e1) {
@@ -63,6 +63,7 @@ public class IF_SFDC_ERP_REG_SAMPLE extends WebCalloutUtil {
             pw.close();
         }
 
+        objOutput.setErrorList(objInput == null ? new ArrayList<>() : objInput.mkErrorList(objOutput.getResultCode()));
         return objOutput;
     }
 }

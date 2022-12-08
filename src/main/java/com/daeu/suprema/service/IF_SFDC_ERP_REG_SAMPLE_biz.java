@@ -31,7 +31,6 @@ public class IF_SFDC_ERP_REG_SAMPLE_biz extends WebCalloutUtil {
             objOutput.setResultCode(!flag ? "0000" : "9999");
             objOutput.setResultMessage(!flag ? "SUCCESS" : "ERROR");
         }
-        objOutput.setErrorList(new ArrayList<>());
 
         return objOutput;
     }

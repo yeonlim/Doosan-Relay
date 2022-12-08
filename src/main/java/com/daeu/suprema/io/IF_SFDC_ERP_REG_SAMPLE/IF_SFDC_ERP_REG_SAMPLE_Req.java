@@ -1,9 +1,9 @@
 package com.daeu.suprema.io.IF_SFDC_ERP_REG_SAMPLE;
 
+import com.daeu.suprema.io.Error;
+import com.daeu.suprema.io.Error2;
 import lombok.Data;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,4 +87,28 @@ public class IF_SFDC_ERP_REG_SAMPLE_Req {
 			}
 		}
     }
+
+	public List<Error2> mkErrorList(String resultCode) {
+		List<Error2> errorList = new ArrayList<>();
+
+		if(!"0000".equals(resultCode)) {
+			if(this.productList == null) {
+				Error2 error = new Error2();
+				error.setOrderId(this.orderId);
+				error.setOrderProductId(null);
+
+				errorList.add(error);
+			} else {
+				for(int i = 0; i < this.productList.size(); i++) {
+					Error2 error = new Error2();
+					error.setOrderId(this.orderId);
+					error.setOrderProductId(this.productList.get(i).getOrderProductId());
+
+					errorList.add(error);
+				}
+			}
+		}
+
+		return errorList;
+	}
 }

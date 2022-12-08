@@ -1,5 +1,7 @@
 package com.daeu.suprema.io.IF_SFDC_ERP_REG_PO;
 
+import com.daeu.suprema.io.Error;
+import com.daeu.suprema.io.Error2;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -203,5 +205,29 @@ public class IF_SFDC_ERP_REG_PO_Req {
 				else if(this.productList.get(i).getOriginCode() == null || "".equals(this.productList.get(i).getOriginCode())) 	{ objOutput.setResultCode("1000"); objOutput.setResultMessage(String.format("productList[%d].originCode is Empty", i)); break;	}
 			}
 		}
+	}
+
+	public List<Error2> mkErrorList(String resultCode) {
+		List<Error2> errorList = new ArrayList<>();
+
+		if(!"0000".equals(resultCode)) {
+			if(this.productList == null) {
+				Error2 error = new Error2();
+				error.setOrderId(this.orderId);
+				error.setOrderProductId(null);
+
+				errorList.add(error);
+			} else {
+				for(int i = 0; i < this.productList.size(); i++) {
+					Error2 error = new Error2();
+					error.setOrderId(this.orderId);
+					error.setOrderProductId(this.productList.get(i).getOrderProductId());
+
+					errorList.add(error);
+				}
+			}
+		}
+
+		return errorList;
 	}
 }
