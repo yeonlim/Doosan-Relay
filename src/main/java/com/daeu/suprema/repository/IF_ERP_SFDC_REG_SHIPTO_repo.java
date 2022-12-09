@@ -41,8 +41,9 @@ public class IF_ERP_SFDC_REG_SHIPTO_repo {
                     "         WHERE IF_REC_ID IN (" +
                     "             SELECT MAX(IF_REC_ID)" +
                     "             FROM dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
-                    "             WHERE BP_CD IN (SELECT TOP 40 PARTNER_BP_CD FROM IF_ERP_SFDC_INFO_SHIPTO ORDER BY IF_CRT_DT ASC)" +
-                    "             GROUP BY BP_CD)" +
+                    "             WHERE BP_CD IN (SELECT TOP 40 PARTNER_BP_CD FROM IF_ERP_SFDC_INFO_SHIPTO WHERE IF_STATUS = 'R' ORDER BY IF_REC_ID ASC)" +
+                    "             GROUP BY BP_CD" +
+                    "         )" +
                     "     )IESIA ON IESIS.PARTNER_BP_CD = IESIA.BP_CD" +
                     " WHERE IESIS.IF_STATUS = 'R'" +
                     " ORDER BY IESIS.IF_REC_ID ASC";
