@@ -33,7 +33,7 @@ public class IF_ERP_SFDC_REG_ACCOUNT_repo {
     private final String[] IF_FIELDS = {"BP_CD", "BP_RGST_NO", "BP_FULL_NM", "ADDR_ENG", "TEL_NO1", "CONTRY_CD", "BP_PRSN_NM", "CURRENCY", "PAY_METH", "DEAL_TYPE", "BOOS_ORDER_YN", "SFDC_ACCOUNT_ID"};
 
     private final String SELECT_ACCOUNT_LIST =
-            "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
+            "SELECT TOP 20 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
                     " FROM dbo.IF_ERP_SFDC_INFO_ACCOUNT" +
                     " WHERE IF_STATUS = 'R'" +
                     " ORDER BY IF_REC_ID ASC";
