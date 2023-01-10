@@ -48,7 +48,7 @@ public class SfdcJwtUtil {
             String[] claimArray = new String[4];
             if("DEV".equals(serverType)) {
                 claimArray[0] = "interface@suprema.co.kr.supremadev";   // username (Interface용 계정정보)
-                claimArray[1] = "daeu2022!!";                           // password (Interface용 계정정보)
+                claimArray[1] = "daeu2023!!";                           // password (Interface용 계정정보)
                 claimArray[2] = "3MVG9rnryk9FxFMVvmL8T77RuUnKcePVzU7UrW2PfrDv9yf7CBIfiqSt2KXqKp8yDKohD_FjC90qgQe3e7RvZ"; // Oauth App > Consumer Key
                 claimArray[3] = "8A40471A831D0D0D1D8F69EB87CBA96AD883C6C95DC17AF6C511789B67591FF4";                      // Oauth App > Consumer Secret
             } else if("PARTIAL".equals(serverType)) {
