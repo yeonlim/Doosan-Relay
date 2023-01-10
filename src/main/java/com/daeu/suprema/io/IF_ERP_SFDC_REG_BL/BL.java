@@ -33,32 +33,42 @@ public class BL {
     private String releaseExpectedDate;
 
     /**
-     *  1-6. L/C No
+     * 1-6. Invoice No
+     */
+    private String ivNo;
+
+    /**
+     * 1-7. Invoice Date
+     */
+    private String ivDate;
+
+    /**
+     *  1-8. L/C No
      */
     private String lcNo;
 
     /**
-     *  1-7. L/C Date
+     *  1-9. L/C Date
      */
     private String lcDate;
 
     /**
-     *  1-8. L/C Issuing Bank
+     *  1-10. L/C Issuing Bank
      */
     private String lcIssuingBank;
 
     /**
-     *  1-9. 수주 상품 리스트
+     *  1-11. 수주 상품 리스트
      */
     private List<PRODUCT> productList;
 
     /**
-     *  1-10. 시리얼 번호 리스트
+     *  1-12. 시리얼 번호 리스트
      */
     private List<SERIAL_NO> serialNoList;
 
     /**
-     * 1-11. Record ID
+     * 1-13. Record ID
      */
     private int recordId;
 
@@ -76,5 +86,7 @@ public class BL {
         this.lcDate = flag || b.get("LC_DATE") == null ? null : b.get("LC_DATE").toString();
         this.lcIssuingBank = flag || b.get("LC_ISSUE_BANK") == null ? null : b.get("LC_ISSUE_BANK").toString();
         this.recordId = Integer.parseInt(b.get("IF_REC_ID").toString());
+        this.ivNo = flag || b.get("IV_NO") == null ? "" : b.get("IV_NO").toString();
+        this.ivDate = flag || b.get("IV_CRT_DT") == null ? "" : b.get("IV_CRT_DT").toString();
     }
 }

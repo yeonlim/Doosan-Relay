@@ -7,17 +7,17 @@ import java.util.Map;
 @Data
 public class PRODUCT {
     /**
-     *  1-9-1. 상품 ID (OrderProduct SFDC Key)
+     *  1-11-1. 상품 ID (OrderProduct SFDC Key)
      */
     private String productId;
 
     /**
-     *  1-9-2. 상품 H/S 코드
+     *  1-11-2. 상품 H/S 코드
      */
     private String productHsCode;
 
     /**
-     *  1-9-3. Record ID
+     *  1-11-3. Record ID
      */
     private int recordId;
 
