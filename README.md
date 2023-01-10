@@ -32,18 +32,17 @@
  - SFDC -> 중계서버 API 쪽으로 Batch 실행 요청
  
 ===========================================================================
-SFDC -> 중계서버 RestAPI 통신
+### SFDC -> 중계서버 RestAPI 통신
 
+ * Prod Org
+	- supremainc.lightning.force.com
+	- supremainc.my.salesforce.com
 
-Prod Org
-supremainc.lightning.force.com
-supremainc.my.salesforce.com
-
-Dev Org
-supremainc--supremadev.sandbox.my.salesforce.com
-supremainc--supremadev.sandbox.lightning.force.com
-supremainc--supremadev.sandbox.my.salesforce-sites.com
-supremainc--supremadev.sandbox.my.site.com
+ * Dev Org
+	- supremainc--supremadev.sandbox.my.salesforce.com
+	- supremainc--supremadev.sandbox.lightning.force.com
+	- supremainc--supremadev.sandbox.my.salesforce-sites.com
+	- supremainc--supremadev.sandbox.my.site.com
 ===========================================================================
 
 기본 패키지 구조 : com.daeu.suprema
