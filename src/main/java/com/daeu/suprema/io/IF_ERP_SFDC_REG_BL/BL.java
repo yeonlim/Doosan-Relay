@@ -87,6 +87,6 @@ public class BL {
         this.lcIssuingBank = flag || b.get("LC_ISSUE_BANK") == null ? null : b.get("LC_ISSUE_BANK").toString();
         this.recordId = Integer.parseInt(b.get("IF_REC_ID").toString());
         this.ivNo = flag || b.get("IV_NO") == null ? "" : b.get("IV_NO").toString();
-        this.ivDate = flag || b.get("IV_CRT_DT") == null ? "" : b.get("IV_CRT_DT").toString();
+        this.ivDate = flag || b.get("IV_CRT_DT") == null ? null : b.get("IV_CRT_DT").toString();
     }
 }
