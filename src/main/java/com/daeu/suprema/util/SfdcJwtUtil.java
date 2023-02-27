@@ -62,8 +62,8 @@ public class SfdcJwtUtil {
                 claimArray[2] = "3MVG9Po2PmyYruun6G1tJUk56uDn5Qn8.rQBWOnqI3RMW2EgUdgKWm.EbNhhjVqYH1x9kTns9Xab58lR07IDj"; // Oauth App > Consumer Key
                 claimArray[3] = "38AC3D3C18D83BF9D295E60B2C354B9E99A4006F0E757736989AEA8E538996E1";                      // Oauth App > Consumer Secret
             } else if("PROD".equals(serverType)) {
-                claimArray[0] = "shryu@suprema.co.kr";                  // username (Interface용 계정정보)
-                claimArray[1] = "fbtmdgus!1";                           // password (Interface용 계정정보)
+                claimArray[0] = "oms@suprema.co.kr";                    // username (Interface용 계정정보)
+                claimArray[1] = "djadlrgus!20231";                      // password (Interface용 계정정보)
                 claimArray[2] = "3MVG9ZL0ppGP5UrDURMzPu5hyrQhCBxUFnnLfvxdOGaGashfy5gMcDOS3zEM.EJmtLMof8pyEH5vFhOy6V4dt"; // Oauth App > Consumer Key
                 claimArray[3] = "2DEEF52F89A805582649565B5C0BC18B2CA360937318EA2C2B686F19C1714A4E";                      // Oauth App > Consumer Secret
             }
