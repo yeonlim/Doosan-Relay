@@ -7,43 +7,43 @@ import java.util.Map;
 @Data
 public class SERIAL_NO {
     /**
-     *  1-12-1. 대표품목명코드
+     *  1-13-1. 대표품목명코드
      */
     private String productCode;
 
     /**
-     *  1-12-2. Serial No
+     *  1-13-2. Serial No
      */
     private String serialNo;
 
     /**
-     *  1-12-3. 출고일자
+     *  1-13-3. 출고일자
      */
     private String releaseDate;
 
     /**
-     *  1-12-4. 출고수량
+     *  1-13-4. 출고수량
      */
     private double quantity;
 
     /**
-     *  1-12-5. 펌웨어 버전
+     *  1-13-5. 펌웨어 버전
      */
     private String firmwareVersion;
 
     /**
-     *  1-12-6. 제품 생산일자
+     *  1-13-6. 제품 생산일자
      */
     private String productionDt;
 
     /**
-     *  1-12-7. CUD 타입 (C, U, D)<br>
+     *  1-13-7. CUD 타입 (C, U, D)<br>
      *  - C: Insert, U: Update, D: Delete
      */
     private String cudType;
 
     /**
-     *  1-12-8. Record ID
+     *  1-13-8. Record ID
      */
     private int recordId;
 

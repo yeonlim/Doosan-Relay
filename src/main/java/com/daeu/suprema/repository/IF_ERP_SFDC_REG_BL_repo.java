@@ -30,7 +30,7 @@ public class IF_ERP_SFDC_REG_BL_repo {
     private NamedParameterJdbcTemplate primaryNamedJdbcTemplate;
 
     private final String[] COMMON_FIELDS = {"IF_REC_ID", "IF_ACT_CODE", "IF_CRT_DT", "IF_STATUS", "IF_ERR_MSG"};
-    private final String[] IF_FIELDS = {"SFDC_ORDERID", "SFDC_ORDERPRODUCTID", "HS_CD_H", "BL_DOC_NO", "FORMAT(INV_DT, 'yyyy-MM-dd') INV_DT", "FORMAT(PROMISE_DT, 'yyyy-MM-dd') PROMISE_DT", "FORMAT(ACTUAL_GI_DT, 'yyyy-MM-ddTHH:mm:ss') ACTUAL_GI_DT", "S_ITEM_CD", "SERIAL_NO", "GI_QTY", "HS_CD_D", "LC_NO", "FORMAT(LC_DATE, 'yyyy-MM-ddTHH:mm:ss') LC_DATE", "LC_ISSUE_BANK", "FW_VER", "FORMAT(PRODUCTION_DT, 'yyyy-MM-ddTHH:mm:ss') PRODUCTION_DT", "IV_NO", "FORMAT(IV_CRT_DT, 'yyyy-MM-ddTHH:mm:ss') IV_CRT_DT"};
+    private final String[] IF_FIELDS = {"SFDC_ORDERID", "SFDC_ORDERPRODUCTID", "HS_CD_H", "BL_DOC_NO", "FORMAT(INV_DT, 'yyyy-MM-dd') INV_DT", "FORMAT(PROMISE_DT, 'yyyy-MM-dd') PROMISE_DT", "FORMAT(ACTUAL_GI_DT, 'yyyy-MM-ddTHH:mm:ss') ACTUAL_GI_DT", "S_ITEM_CD", "SERIAL_NO", "GI_QTY", "HS_CD_D", "LC_NO", "FORMAT(LC_DATE, 'yyyy-MM-ddTHH:mm:ss') LC_DATE", "LC_ISSUE_BANK", "FW_VER", "FORMAT(PRODUCTION_DT, 'yyyy-MM-ddTHH:mm:ss') PRODUCTION_DT", "IV_NO", "FORMAT(IV_CRT_DT, 'yyyy-MM-ddTHH:mm:ss') IV_CRT_DT", "REMARK_HDR", "REMARK_DTL"};
 
     private final String SELECT_BL_LIST =
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +

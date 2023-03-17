@@ -74,7 +74,6 @@ public class IF_ERP_SFDC_REG_BL_biz extends WebCalloutUtil {
                 // Order 정보 설정 (가장 마지막 Index의 값으로 설정)
                 BL bl = new BL(bList.get(bList.size() - 1));
 
-
                 Map<String, PRODUCT> productMap = new HashMap<>();
                 List<SERIAL_NO> serialNoList = new ArrayList<>();
                 for(Map<String, Object> b : bList) {
