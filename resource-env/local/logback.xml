@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration scan="true" scanPeriod="30 seconds">
-    <property name="LOG_FILE_PATH" value="${user.home}/Suprema-relay/local/log" />
+    <property name="LOG_FILE_PATH" value="${user.home}/FileTransferServer/local/log" />
 
     <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
-        <file zip="2" del="5">${LOG_FILE_PATH}/Suprema-relay.log</file>
+        <file zip="2" del="5">${LOG_FILE_PATH}/FileTransferServer.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_PATH}/Suprema-relay.%d{yyyyMMdd}</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_PATH}/FileTransferServer.%d{yyyyMMdd}</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>

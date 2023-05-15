@@ -2,11 +2,10 @@ plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
-	id 'war'
 }
 
-group = 'com.daeu.suprema'
-version = '0.0.1-SNAPSHOT'
+group = 'com.daeu.fts'
+version = '1.0.0'
 sourceCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 
@@ -19,38 +18,36 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.boot:spring-boot-starter-web-services')
 	implementation('org.springframework.boot:spring-boot-starter-tomcat')
-	implementation('org.springframework.boot:spring-boot-starter-aop')
-	implementation('org.springframework.boot:spring-boot-starter-jdbc')
 	implementation('org.springframework.boot:spring-boot-starter-validation')
 	implementation('org.springframework.boot:spring-boot-configuration-processor')
-	// implementation('org.springframework.boot:spring-boot-starter-security')
+
+	// Netty
+	implementation('io.netty:netty-all:4.1.90.Final')
 
 	// lombok
 	implementation('org.projectlombok:lombok')
 	annotationProcessor('org.projectlombok:lombok')
 
 	// joda-time
-	implementation('joda-time:joda-time:2.11.1')
+	implementation('joda-time:joda-time:2.12.2')
 
 	// log
 	implementation('ch.qos.logback:logback-classic')
 
 	// json
 	implementation('com.fasterxml.jackson.core:jackson-core')
-	implementation('com.google.code.gson:gson:2.9.0')
+	implementation('com.google.code.gson:gson:2.10.1')
 
 	// apache common
 	implementation('org.apache.commons:commons-lang3')
 	implementation('commons-net:commons-net:3.8.0')
+	implementation('commons-io:commons-io:2.11.0')
 
 	// httpclient
-	implementation('org.apache.httpcomponents:httpclient:4.5.13')
-
-	// MS-Sql
-	implementation('com.microsoft.sqlserver:mssql-jdbc')
+	implementation('org.apache.httpcomponents:httpclient:4.5.14')
 
 	// local lib
-	implementation fileTree(dir: "libs")
+	// implementation fileTree(dir: "libs")
 }
 
 // resources profile 정의 (local, dev, prod)
