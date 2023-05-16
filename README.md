@@ -1,25 +1,16 @@
 # Suprema-Relay
-삼성중공업 중계서버 파일 송/수신용 프로젝트
+슈프리마 중계서버 API용 웹 프로젝트
 
-- Java 1.8 (Gradle)
+- Java 1.8 (Spring Boot)
 
-프로젝트명 : FileTransferServer (SpringBoot, Netty)
-
-* 개요
-
-세일즈포스와 NAS를 Socket 방식으로 연계해야한다.
-
-실제 파일은 NAS에 저장하며, 저장경로 및 파일명 등은 세일즈포스에서 관리
-
-파일 다운로드가 필요할 경우, NAS로 부터 파일은 가져오는 구조
-
+* 개발내용
+프로젝트명 : Suprema-Relay (JAVA1.8, Gradle, SpringBoot)
 
 * 개발 내용
-
-
 * 초기환경 구축
 	- logback
 	- profile(local, dev, prod)
+	- 3th party lib implementation
 	
 * 공통 모듈 개발
 	- AOP : Req/Res Log 출력 (TODO : Req/Res Report 저장)
@@ -54,7 +45,7 @@
 	- supremainc--supremadev.sandbox.my.site.com
 ===========================================================================
 
-기본 패키지 구조 : com.daeu.fts
+기본 패키지 구조 : com.daeu.suprema
 
 1. SupremaRelayApplication.class
 	- Spring Boot 메인 클래스 (main 함수 실행 시, 프로젝트 실행)
