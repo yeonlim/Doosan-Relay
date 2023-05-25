@@ -36,7 +36,7 @@ public class IF_ERP_SFDC_REG_BL_repo {
             "SELECT TOP 40 " + String.join(", ", COMMON_FIELDS) + ", " + String.join(", ", IF_FIELDS) +
                     " FROM dbo.IF_ERP_SFDC_INFO_BL" +
                     " WHERE IF_STATUS = 'R'" +
-                    " ORDER BY IF_CRT_DT ASC";
+                    " ORDER BY IF_REC_ID ASC";
 
     private final String UPDATE_BL_LIST =
             "UPDATE dbo.IF_ERP_SFDC_INFO_BL" +
