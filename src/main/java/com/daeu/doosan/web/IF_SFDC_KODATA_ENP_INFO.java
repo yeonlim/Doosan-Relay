@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 
-public class IF_SFDC_KODATA_ENP_INFO extends WebCalloutUtil {
+public class IF_SFDC_KODATA_ENP_INFO {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
