@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 /**
- * 중계서버 RestAPI -> SFDC
  * - HTTP Request Util Class
  */
 @Component
