@@ -19,5 +19,5 @@ public class ResponseHeader {
     private String resultMessage;
 
     private List<Error> errorList;
-    private HttpServletResponse body;
+    private String body;
 }

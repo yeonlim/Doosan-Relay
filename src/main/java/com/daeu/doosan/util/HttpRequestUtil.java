@@ -66,4 +66,35 @@ public class HttpRequestUtil {
 
         return result.getBody();
     }
+
+    public String doGet(String path) {
+        // [토큰타입, 토큰, 도메인]
+        String[] jwtInfo = sfdcJwtUtil.getJWT(serverType, profile);
+
+        // Url
+        URI uri = UriComponentsBuilder
+                .fromUriString(jwtInfo[2])          // 호출 도메인 설정
+                .path(path)                         // URL Path 설정
+                .encode()
+                .build()
+                .toUri();
+        logger.info("Request URL : {}", uri.toString());
+
+        // Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", String.format("%s %s", jwtInfo[0], jwtInfo[1]));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        logger.info("headers : {}", headers.toString());
+
+        // 요청 Entity
+        HttpEntity<Object> reqEntity = new HttpEntity<Object>(headers);
+
+        RestTemplate restTemplete = new RestTemplate();
+        ResponseEntity<String> result = restTemplete.postForEntity(uri, reqEntity, String.class);
+
+        logger.info("Response Status Code : {}", result.getStatusCode());
+        logger.info("Response Body : {}", result.getBody());
+
+        return result.getBody();
+    }
 }

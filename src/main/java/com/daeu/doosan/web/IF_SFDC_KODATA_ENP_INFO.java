@@ -27,9 +27,9 @@ public class IF_SFDC_KODATA_ENP_INFO {
         ResponseHeader res = new ResponseHeader();
 
         try {
-            res.setResultCode("0000"); // SUCCESS
-            res.setResultMessage("SUCCESS");
-            res.setBody(response);
+//            res.setResultCode("0000"); // SUCCESS
+//            res.setResultMessage("SUCCESS");
+//            res.setBody(response);
         } catch (Exception e) {
             logger.error(e.getMessage());
 
