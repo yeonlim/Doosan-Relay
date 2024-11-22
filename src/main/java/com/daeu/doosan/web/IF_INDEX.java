@@ -1,6 +1,5 @@
 package com.daeu.doosan.web;
 
-import com.daeu.doosan.util.WebCalloutUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class IF_INDEX extends WebCalloutUtil {
+public class IF_INDEX {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 

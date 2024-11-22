@@ -1,7 +1,7 @@
 package com.daeu.doosan.service;
 
+import com.daeu.doosan.io.IF_SFDC_KODATA_ENP_INFO.IF_SFDC_KODATA_ENP_INFO_Req;
 import com.daeu.doosan.io.IF_SFDC_KODATA_ENP_INFO.IF_SFDC_KODATA_ENP_INFO_Res;
-import com.daeu.doosan.io.IF_SFDC_KODATA_ENP_SEARCH.IF_SFDC_KODATA_ENP_SEARCH_Req;
 import com.daeu.doosan.util.HttpRequestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
     @Value("${IF.SFDC.KODATA.ENP.INFO.PATH}")
     private String IF_SFDC_KODATA_ENP_INFO;
 
-    public IF_SFDC_KODATA_ENP_INFO_Res excute(IF_SFDC_KODATA_ENP_SEARCH_Req objInput) {
+    public IF_SFDC_KODATA_ENP_INFO_Res excute(IF_SFDC_KODATA_ENP_INFO_Req objInput) {
         IF_SFDC_KODATA_ENP_INFO_Res objRes = new IF_SFDC_KODATA_ENP_INFO_Res();
 
         try {

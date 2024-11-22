@@ -3,9 +3,7 @@ package com.daeu.doosan.web;
 
 import com.daeu.doosan.io.IF_SFDC_KODATA_ENP_SEARCH.IF_SFDC_KODATA_ENP_SEARCH_Req;
 import com.daeu.doosan.io.IF_SFDC_KODATA_ENP_SEARCH.IF_SFDC_KODATA_ENP_SEARCH_Res;
-import com.daeu.doosan.io.ResponseHeader;
 import com.daeu.doosan.service.IF_SFDC_KODATA_ENP_SEARCH_biz;
-import com.daeu.doosan.util.WebCalloutUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class IF_SFDC_KODATA_ENP_SEARCH extends WebCalloutUtil {
+public class IF_SFDC_KODATA_ENP_SEARCH {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
     IF_SFDC_KODATA_ENP_SEARCH_biz service = new IF_SFDC_KODATA_ENP_SEARCH_biz();
