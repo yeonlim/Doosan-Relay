@@ -24,7 +24,7 @@ public class IF_SFDC_KODATA_ENP_SEARCH_biz {
     @Value("${IF.SFDC.KODATA.ENP.SEARCH.PATH}")
     private String IF_SFDC_KODATA_ENP_SEARCH;
 
-    public IF_SFDC_KODATA_ENP_SEARCH_Res excute(IF_SFDC_KODATA_ENP_SEARCH_Req objInput) {
+    public IF_SFDC_KODATA_ENP_SEARCH_Res execute(IF_SFDC_KODATA_ENP_SEARCH_Req objInput) {
         IF_SFDC_KODATA_ENP_SEARCH_Res objRes = new IF_SFDC_KODATA_ENP_SEARCH_Res();
         try {
             String path = IF_SFDC_KODATA_ENP_SEARCH;

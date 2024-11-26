@@ -35,7 +35,7 @@ public class IF_SFDC_KODATA_ENP_INFO {
             ObjectMapper mapper = new ObjectMapper();
             objInput = mapper.readValue(fRequestBody, IF_SFDC_KODATA_ENP_INFO_Req.class);
 
-            objOutput = service.excute(objInput);
+            objOutput = service.execute(objInput);
         } catch (Exception e) {
             logger.error(e.getMessage());
 

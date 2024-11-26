@@ -26,7 +26,7 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
     @Value("${IF.SFDC.KODATA.ENP.INFO.PATH}")
     private String IF_SFDC_KODATA_ENP_INFO;
 
-    public IF_SFDC_KODATA_ENP_INFO_Res excute(IF_SFDC_KODATA_ENP_INFO_Req objInput) {
+    public IF_SFDC_KODATA_ENP_INFO_Res execute(IF_SFDC_KODATA_ENP_INFO_Req objInput) {
         IF_SFDC_KODATA_ENP_INFO_Res objRes = new IF_SFDC_KODATA_ENP_INFO_Res();
 
         try {
