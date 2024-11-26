@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration scan="true" scanPeriod="30 seconds">
-    <property name="LOG_FILE_PATH" value="D:/Doosan-relay/log" />
+    <property name="LOG_FILE_PATH" value="C:/Doosan-relay/log" />
 
     <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">

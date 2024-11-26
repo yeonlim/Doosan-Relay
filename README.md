@@ -55,6 +55,12 @@
 3. common.ApplicationInit.class
 	- Spring Boot 실행시, 실행되는 클래스 (시작 직후 단 한번)
 
-4. web.*.class
+4. io.*.class
+	- API 별 통신 파라미터 정의 클래스
+
+5. web.*.class
 	- API 정의 클래스
+   
+6. service.*.class
+	- API 별 biz 로직 정의 클래스
 ===========================================================================

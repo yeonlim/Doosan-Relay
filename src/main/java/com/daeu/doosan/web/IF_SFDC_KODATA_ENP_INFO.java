@@ -24,7 +24,6 @@ public class IF_SFDC_KODATA_ENP_INFO {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     IF_SFDC_KODATA_ENP_INFO_biz service = new IF_SFDC_KODATA_ENP_INFO_biz();
 
-
     @RequestMapping(value = "/V1/IF_SFDC_KODATA_ENP_INFO", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public IF_SFDC_KODATA_ENP_INFO_Res doPost(@RequestBody String fRequestBody, HttpServletRequest request, HttpServletResponse response) {
