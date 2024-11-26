@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class IF_SFDC_KODATA_ENP_INFO_biz {
@@ -35,11 +36,15 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> mapParam = objectMapper.convertValue(objInput, Map.class);
 
-            for (String key : mapParam.keySet()) {
-                path += key + '=' + mapParam.get(key) + '&';
-            }
+            path += mapParam.entrySet().stream()
+                    .map(entry -> entry.getKey() + "=" + entry.getValue())
+                    .collect(Collectors.joining("&"));
 
-            path = path.substring(0, path.length() - 1);
+//            for (String key : mapParam.keySet()) {
+//                path += key + '=' + mapParam.get(key) + '&';
+//            }
+//
+//            path = path.substring(0, path.length() - 1);
 
             // 요청
             String responseStr = httpRequestUtil.doGet(path);

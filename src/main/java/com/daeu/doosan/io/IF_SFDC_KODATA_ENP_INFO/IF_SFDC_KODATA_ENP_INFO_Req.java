@@ -1,5 +1,8 @@
 package com.daeu.doosan.io.IF_SFDC_KODATA_ENP_INFO;
 
+import lombok.Data;
+
+@Data
 public class IF_SFDC_KODATA_ENP_INFO_Req {
     private String userid;      //아이디 
     private String process;     //처리구분
