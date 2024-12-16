@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,27 +23,18 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
-    @Value("${IF.SFDC.KODATA.ENP.INFO.PATH}")
-    private String IF_SFDC_KODATA_ENP_INFO;
-
     public IF_SFDC_KODATA_ENP_INFO_Res execute(IF_SFDC_KODATA_ENP_INFO_Req objInput) {
         IF_SFDC_KODATA_ENP_INFO_Res objRes = new IF_SFDC_KODATA_ENP_INFO_Res();
 
         try {
-            String path = IF_SFDC_KODATA_ENP_INFO;
-
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> mapParam = objectMapper.convertValue(objInput, Map.class);
 
-            path += mapParam.entrySet().stream()
+            String path = mapParam.entrySet().stream()
                     .map(entry -> entry.getKey() + "=" + entry.getValue())
                     .collect(Collectors.joining("&"));
 
-//            for (String key : mapParam.keySet()) {
-//                path += key + '=' + mapParam.get(key) + '&';
-//            }
-//
-//            path = path.substring(0, path.length() - 1);
+            logger.info("path : " + path);
 
             // 요청
             String responseStr = httpRequestUtil.doGet(path);
@@ -59,7 +49,7 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
                 objRes.setResultMessage("요청 실패");
             }
         } catch(Exception e) {
-            logger.error(e.getMessage());
+            logger.error("ERROR : " + e.getMessage() + " / Line : " + e.getStackTrace()[0].getLineNumber());
 
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);

@@ -6,6 +6,7 @@
     <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
+            <level>DEBUG</level>
         </filter>
         <file zip="2" del="5">${LOG_FILE_PATH}/Doosan-relay.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

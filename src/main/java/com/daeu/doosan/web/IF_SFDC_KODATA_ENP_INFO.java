@@ -6,11 +6,9 @@ import com.daeu.doosan.service.IF_SFDC_KODATA_ENP_INFO_biz;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +17,13 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 
+@RestController
 public class IF_SFDC_KODATA_ENP_INFO {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
-    IF_SFDC_KODATA_ENP_INFO_biz service = new IF_SFDC_KODATA_ENP_INFO_biz();
+
+    @Autowired
+    IF_SFDC_KODATA_ENP_INFO_biz service;
 
     @RequestMapping(value = "/V1/IF_SFDC_KODATA_ENP_INFO", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)

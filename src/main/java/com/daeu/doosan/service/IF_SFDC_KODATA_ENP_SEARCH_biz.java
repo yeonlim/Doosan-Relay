@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 public class IF_SFDC_KODATA_ENP_SEARCH_biz {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -22,18 +24,13 @@ public class IF_SFDC_KODATA_ENP_SEARCH_biz {
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
-    @Value("${IF.SFDC.KODATA.ENP.SEARCH.PATH}")
-    private String IF_SFDC_KODATA_ENP_SEARCH;
-
     public IF_SFDC_KODATA_ENP_SEARCH_Res execute(IF_SFDC_KODATA_ENP_SEARCH_Req objInput) {
         IF_SFDC_KODATA_ENP_SEARCH_Res objRes = new IF_SFDC_KODATA_ENP_SEARCH_Res();
         try {
-            String path = IF_SFDC_KODATA_ENP_SEARCH;
-
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> mapParam = objectMapper.convertValue(objInput, Map.class);
 
-            path += mapParam.entrySet().stream()
+            String path = mapParam.entrySet().stream()
                     .map(entry -> entry.getKey() + "=" + entry.getValue())
                     .collect(Collectors.joining("&"));
 

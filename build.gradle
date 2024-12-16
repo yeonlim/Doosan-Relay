@@ -18,12 +18,11 @@ dependencies {
 	// spring boot
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.boot:spring-boot-starter-web-services')
-	implementation('org.springframework.boot:spring-boot-starter-tomcat')
 	implementation('org.springframework.boot:spring-boot-starter-aop')
 	implementation('org.springframework.boot:spring-boot-starter-jdbc')
 	implementation('org.springframework.boot:spring-boot-starter-validation')
 	implementation('org.springframework.boot:spring-boot-configuration-processor')
-	// implementation('org.springframework.boot:spring-boot-starter-security')
+//	 implementation('org.springframework.boot:spring-boot-starter-security')
 
 	// lombok
 	implementation('org.projectlombok:lombok')
@@ -51,10 +50,15 @@ dependencies {
 
 	// local lib
 	implementation fileTree(dir: "libs")
+
+	implementation ('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+	}
+
 }
 
 // resources profile 정의 (local, dev, prod)
-def profile = "local"
+def profile = "prod"
 println("profile : " + profile)
 
 sourceSets {
