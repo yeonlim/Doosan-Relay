@@ -24,6 +24,9 @@ public class IF_SFDC_KODATA_ENP_SEARCH_biz {
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
+    @Value("${IF.SFDC.KODATA.ENP.SEARCH.PATH}")
+    private String IF_SFDC_KODATA_ENP_SEARCH;
+
     public IF_SFDC_KODATA_ENP_SEARCH_Res execute(IF_SFDC_KODATA_ENP_SEARCH_Req objInput) {
         IF_SFDC_KODATA_ENP_SEARCH_Res objRes = new IF_SFDC_KODATA_ENP_SEARCH_Res();
         try {
@@ -35,7 +38,7 @@ public class IF_SFDC_KODATA_ENP_SEARCH_biz {
                     .collect(Collectors.joining("&"));
 
             // 요청
-            String responseStr = httpRequestUtil.doGet(path);
+            String responseStr = httpRequestUtil.doGet(IF_SFDC_KODATA_ENP_SEARCH + path);
             logger.info("response : {}", responseStr);
 
             if (!responseStr.isEmpty()) {

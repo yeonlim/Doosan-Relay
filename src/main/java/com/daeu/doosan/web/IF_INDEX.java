@@ -15,7 +15,7 @@ public class IF_INDEX {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/")
     public String doPost(@RequestBody String fRequestBody, HttpServletRequest request, HttpServletResponse response) {
         logger.info("INDEX");
         return "INDEX";

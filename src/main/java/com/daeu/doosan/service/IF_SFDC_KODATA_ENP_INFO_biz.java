@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
     @Autowired
     HttpRequestUtil httpRequestUtil;
 
+    @Value("${IF.SFDC.KODATA.ENP.INFO.PATH}")
+    private String IF_SFDC_KODATA_ENP_INFO;
+
     public IF_SFDC_KODATA_ENP_INFO_Res execute(IF_SFDC_KODATA_ENP_INFO_Req objInput) {
         IF_SFDC_KODATA_ENP_INFO_Res objRes = new IF_SFDC_KODATA_ENP_INFO_Res();
 
@@ -37,7 +41,7 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
             logger.info("path : " + path);
 
             // 요청
-            String responseStr = httpRequestUtil.doGet(path);
+            String responseStr = httpRequestUtil.doGet(IF_SFDC_KODATA_ENP_INFO + path);
             logger.info("response : {}", responseStr);
 
             if (!responseStr.isEmpty()) {

@@ -25,7 +25,7 @@ public class IF_SFDC_KODATA_ENP_SEARCH {
     @Autowired
     IF_SFDC_KODATA_ENP_SEARCH_biz service;
 
-    @RequestMapping(value = "/V1/IF_SFDC_KODATA_ENP_SEARCH", method = RequestMethod.POST)
+    @RequestMapping(value = "/V1/IF_SFDC_KODATA_ENP_SEARCH")
     @ResponseStatus(value = HttpStatus.OK)
     public IF_SFDC_KODATA_ENP_SEARCH_Res doPost(@RequestBody String fRequestBody, HttpServletRequest request, HttpServletResponse response) {
 
