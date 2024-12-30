@@ -1,5 +1,7 @@
 package com.daeu.doosan.util;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -14,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Map;
 
 /**
  * - HTTP Request Util Class
@@ -38,7 +41,7 @@ public class HttpRequestUtil {
         return result.getBody();
     }
 
-    public String doGet(String path) {
+    public Map<String, Object> doGet(String path) {
         logger.info("doGet Method Start!");
 
         // Create HttpClient instance
@@ -53,7 +56,10 @@ public class HttpRequestUtil {
                 logger.info("Response Status Code: {}", statusCode);
                 logger.info("Response Body: {}", responseBody);
 
-                return responseBody;
+                Gson gson = new Gson();
+                Map<String, Object> mapJsonBody = gson.fromJson(responseBody,  new TypeToken<Map<String, Object>>(){}.getType());
+
+                return mapJsonBody;
             }
         } catch (Exception e) {
             logger.error("Error occurred while executing HTTP GET request", e);

@@ -4,6 +4,8 @@ import com.daeu.doosan.io.IF_SFDC_KODATA_ENP_SEARCH.IF_SFDC_KODATA_ENP_SEARCH_Re
 import com.daeu.doosan.io.IF_SFDC_KODATA_ENP_SEARCH.IF_SFDC_KODATA_ENP_SEARCH_Res;
 import com.daeu.doosan.util.HttpRequestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -38,11 +41,11 @@ public class IF_SFDC_KODATA_ENP_SEARCH_biz {
                     .collect(Collectors.joining("&"));
 
             // 요청
-            String responseStr = httpRequestUtil.doGet(IF_SFDC_KODATA_ENP_SEARCH + path);
-            logger.info("response : {}", responseStr);
+            Map<String, Object> mapResponseBody = httpRequestUtil.doGet(IF_SFDC_KODATA_ENP_SEARCH + path);
+            logger.info("response : {}", mapResponseBody);
 
-            if (!responseStr.isEmpty()) {
-                objRes.setBody(responseStr);
+            if (!mapResponseBody.isEmpty()) {
+                objRes.setBody(mapResponseBody);
                 objRes.setResultCode("0000");
                 objRes.setResultMessage("SUCCESS");
             } else {

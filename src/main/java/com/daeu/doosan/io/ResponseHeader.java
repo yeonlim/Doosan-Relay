@@ -16,5 +16,5 @@ public class ResponseHeader {
 
     private List<Error> errorList;
 
-    private String body;
+    private Object body;
 }

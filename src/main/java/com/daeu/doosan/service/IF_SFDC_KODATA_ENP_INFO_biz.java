@@ -41,13 +41,13 @@ public class IF_SFDC_KODATA_ENP_INFO_biz {
             logger.info("path : " + path);
 
             // 요청
-            String responseStr = httpRequestUtil.doGet(IF_SFDC_KODATA_ENP_INFO + path);
-            logger.info("response : {}", responseStr);
+            Map<String, Object> mapResponseBody = httpRequestUtil.doGet(IF_SFDC_KODATA_ENP_INFO + path);
+            logger.info("response : {}", mapResponseBody);
 
-            if (!responseStr.isEmpty()) {
+            if (!mapResponseBody.isEmpty()) {
+                objRes.setBody(mapResponseBody);
                 objRes.setResultCode("0000");
                 objRes.setResultMessage("SUCCESS");
-                objRes.setBody(responseStr);
             } else {
                 objRes.setResultCode("9999");
                 objRes.setResultMessage("요청 실패");
