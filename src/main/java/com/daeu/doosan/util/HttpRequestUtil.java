@@ -16,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -26,27 +28,14 @@ public class HttpRequestUtil {
 
     private Logger logger = LoggerFactory.getLogger(HttpRequestUtil.class);
 
-    public String doGet2(String path) {
-        logger.info("doGet Method Start !");
-//        CloseableHttpClient httpClient = HttpClients.createDefault();
-//        HttpGet httpGet = new HttpGet(path);
-//
-//        CloseableHttpResponse response = httpClient.execute(httpGet);
-
-        RestTemplate restTemplete = new RestTemplate();
-        ResponseEntity<String> result = restTemplete.getForEntity(path, String.class);
-
-        logger.info("Response Status Code : {}", result.getStatusCode());
-        logger.info("Response Body : {}", result.getBody());
-        return result.getBody();
-    }
-
     public Map<String, Object> doGet(String path) {
         logger.info("doGet Method Start!");
 
         // Create HttpClient instance
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpGet httpGet = new HttpGet(path);
+            String encodedPath = URLEncoder.encode(path, StandardCharsets.UTF_8.toString());
+
+            HttpGet httpGet = new HttpGet(encodedPath);
 
             // Execute GET request
             try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
