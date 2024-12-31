@@ -33,9 +33,8 @@ public class HttpRequestUtil {
 
         // Create HttpClient instance
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            String encodedPath = URLEncoder.encode(path, StandardCharsets.UTF_8.toString());
-
-            HttpGet httpGet = new HttpGet(encodedPath);
+            logger.info("path : {}", path);
+            HttpGet httpGet = new HttpGet(path);
 
             // Execute GET request
             try (CloseableHttpResponse response = httpClient.execute(httpGet)) {

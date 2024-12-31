@@ -40,6 +40,8 @@ public class IF_SFDC_KODATA_ENP_SEARCH_biz {
                     .map(entry -> entry.getKey() + "=" + entry.getValue())
                     .collect(Collectors.joining("&"));
 
+            logger.info("path : " + path);
+
             // 요청
             Map<String, Object> mapResponseBody = httpRequestUtil.doGet(IF_SFDC_KODATA_ENP_SEARCH + path);
             logger.info("response : {}", mapResponseBody);
